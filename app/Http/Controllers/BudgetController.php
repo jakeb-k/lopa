@@ -13,7 +13,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $budget = Budget::all(); 
+        
     }
 
     /**
@@ -29,15 +29,17 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Budget $budget)
+    public function show($id)
     {
-        //
+        $budget = Budget::find(1); 
+      
+        return $budget;
     }
 
     /**
