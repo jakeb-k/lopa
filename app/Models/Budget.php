@@ -10,4 +10,8 @@ class Budget extends Model
     use HasFactory;
 
     protected $fillable = ['housing','utils','food','transport','savings','custom'];
+
+    function user(){
+        return $this->belongsTo('App\Models\User'); 
+    }
 }
