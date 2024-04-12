@@ -1,5 +1,6 @@
 <script setup>
 import {onMounted} from 'vue'; 
+import PieChart from '@/Components/Finance/PieChart.vue'; 
 
 
 const props = defineProps({
@@ -12,9 +13,9 @@ onMounted( () => {
 })
 </script>
 <template>
-    <div class="mt-10 p-8 mx-auto w-1/2 h-[450px] bg-gray-200 rounded-xl">
-        <h1 class="text-3xl underline text-gray-800">Budget Overview</h1>
-        <div class="flex flex-col flex-grow">
+    <div class="mt-10 p-8 mx-auto w-1/2 h-[450px] bg-gray-200 rounded-xl flex flex-row">
+        <div class="flex flex-col flex-grow w-1/2">
+        <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
             <div class="mt-4 flex justify-between w-1/2">
                 <span>Income: </span>
                 <span>${{ props.budget.income }}</span>
@@ -41,6 +42,9 @@ onMounted( () => {
             </div>
         </div>
         
+        <div>
+            <PieChart></PieChart>
+        </div>
 
     </div>
 </template>
