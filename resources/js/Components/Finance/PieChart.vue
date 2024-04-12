@@ -13,8 +13,7 @@ const props = defineProps({
     },
 })
 
-
-onMounted(()=> {
+function createPieChart(){
   const ctx = document.getElementById('myPieChart').getContext('2d');
   new Chart(ctx, {
       type: 'pie',
@@ -34,6 +33,10 @@ onMounted(()=> {
         }]
       }
     });
+}
+
+onMounted(()=> {
+  createPieChart(); 
 });
 </script>
 <template>

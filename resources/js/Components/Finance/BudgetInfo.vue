@@ -17,7 +17,9 @@ onMounted(()=>{
 </script>
 <template>
    <div class="mt-4 flex justify-between w-full">
-        <span>{{ props.name }}: </span>
-        <span>${{props.budgetCat * props.income }}</span>
+        <span class="basis-1/3">{{ props.name }}: </span>
+        <span class="basis-1/4">${{props.budgetCat * props.income }}</span>
+        <button class="basis-1/6">EDIT</button>
+
     </div>
 </template>
