@@ -15,13 +15,14 @@ onMounted(() => {
             (props.budget['income'] * props.budget.utils),
             (props.budget['income'] * props.budget.food),
             (props.budget['income'] * props.budget.transport),
-            (props.budget['income'] * props.budget.savings)]; 
-
-    
-})
+            (props.budget['income'] * props.budget.savings)
+    ];
+}); 
 </script>
 <template>
+    
     <div class="mt-10 p-8 mx-auto w-2/5 h-[450px] bg-gray-200 rounded-xl flex flex-row">
+
         <div class="flex flex-col flex-grow w-1/2">
         <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
             <div class="mt-4 flex justify-between w-3/4">
@@ -50,7 +51,8 @@ onMounted(() => {
             </div>
         </div>
         
-        <div class="w-7/12">
+
+        <div>
             <PieChart :pieData="pieData"></PieChart>
         </div>
 
