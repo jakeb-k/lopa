@@ -19,7 +19,7 @@ class BudgetSeeder extends Seeder
             'utils' => 0.1,
             'food' => 0.2,
             'transport' => 0.1,
-            'savings' => 0.2,
+            'savings' => 0.3,
             'user_id' => 1,
         ]);
     }

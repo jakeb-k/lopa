@@ -19,11 +19,11 @@ const props = defineProps({
 <template>
     <Head title="Home" />
 
-    <GuestLayout>
+    <MasterLayout>
         <div class="h-dvh w-full pt-20 bg-gray-700">
             <p class="text-3xl text-white underline text-center">Home Page</p>
             <Budget :budget="budget"></Budget>
         </div>
          
-    </GuestLayout>
+    </MasterLayout>
 </template>
