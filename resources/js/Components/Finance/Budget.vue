@@ -53,19 +53,19 @@ onMounted(() => {
         <div class="flex flex-col w-1/2 mr-20">
         <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
           
-            <BudgetInfo :budgetCat="1" :income="props.budget.income" :name="'Income'">
+            <BudgetInfo :id="props.budget.id" :budgetCat="1" :income="props.budget.income" :name="'Income'">
             </BudgetInfo>
 
-            <BudgetInfo :budgetCat="props.budget.housing" :income="props.budget.income" :name="'Housing'">
+            <BudgetInfo :id="props.budget.id" :budgetCat="props.budget.housing" :income="props.budget.income" :name="'Housing'">
             </BudgetInfo>
 
-            <BudgetInfo :budgetCat="props.budget.food" :income="props.budget.income" :name="'Food'">
+            <BudgetInfo :id="props.budget.id" :budgetCat="props.budget.food" :income="props.budget.income" :name="'Food'">
             </BudgetInfo>
 
-            <BudgetInfo :budgetCat="props.budget.transport" :income="props.budget.income" :name="'Transport'">
+            <BudgetInfo :id="props.budget.id" :budgetCat="props.budget.transport" :income="props.budget.income" :name="'Transport'">
             </BudgetInfo>
 
-            <BudgetInfo :budgetCat="props.budget.savings" :income="props.budget.income" :name="'Savings'">
+            <BudgetInfo :id="props.budget.id" :budgetCat="props.budget.savings" :income="props.budget.income" :name="'Savings'">
             </BudgetInfo>
         </div>
         

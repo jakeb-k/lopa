@@ -4,6 +4,7 @@ import MasterLayout from '@/Layouts/MasterLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import Budget from '@/Components/Finance/Budget.vue';
 
+
 const props = defineProps({
     budget: {
         type: Object

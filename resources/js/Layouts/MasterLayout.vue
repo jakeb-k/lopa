@@ -1,6 +1,7 @@
 <script setup>
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { Link } from '@inertiajs/vue3';
+import { ModalsContainer } from 'vue-final-modal'; 
 </script>
 
 <template>
@@ -11,12 +12,9 @@ import { Link } from '@inertiajs/vue3';
             <Link class="text-2xl hover:underline hover:text-blue-500" :href="route('register')">Register</Link>
 
         </div>
-     
-        
-    
     </div>
     <main>
         <slot />
-
+        <ModalsContainer />
     </main>
 </template>

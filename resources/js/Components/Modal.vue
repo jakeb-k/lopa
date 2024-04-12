@@ -14,6 +14,12 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
+    name: {
+        type: String
+    },
+    id: {
+        type: Number,
+    }
 });
 
 const emit = defineEmits(['close']);
@@ -75,7 +81,7 @@ const maxWidthClass = computed(() => {
                         <div class="absolute inset-0 bg-gray-500 opacity-75" />
                     </div>
                 </Transition>
-
+                
                 <Transition
                     enter-active-class="ease-out duration-300"
                     enter-from-class="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -89,7 +95,9 @@ const maxWidthClass = computed(() => {
                         class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto"
                         :class="maxWidthClass"
                     >
-                        <slot v-if="show" />
+                        <slot v-if="show">
+                        {{ props.name }}
+                        </slot>
                     </div>
                 </Transition>
             </div>
