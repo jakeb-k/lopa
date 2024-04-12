@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted} from 'vue'; 
-import GuestLayout from '@/Layouts/GuestLayout.vue';
+import MasterLayout from '@/Layouts/MasterLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import Budget from '@/Components/Finance/Budget.vue';
 
@@ -11,7 +11,7 @@ const props = defineProps({
  });
 
  onMounted( () => {
-    console.log(props)
+   
 })
 
 </script>

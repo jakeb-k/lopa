@@ -4,6 +4,14 @@ import {onMounted} from 'vue';
 
 Chart.register(...registerables);
 
+const props = defineProps({
+    pieLabels: {
+        type: Array
+    },
+    pieData: {
+        type: Array
+    },
+})
 
 
 onMounted(()=> {
@@ -11,14 +19,16 @@ onMounted(()=> {
     const myPieChart = new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: ['Red', 'Blue', 'Yellow'],
+        labels: ['Housing', 'Utilities', 'Food', 'Transport','Savings'],
         datasets: [{
-          label: 'My First Dataset',
-          data: [300, 50, 100],
+          label: 'My Budget',
+          data: props.pieData,
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
+            'rgb(255, 205, 86)', 
+            'rgb(153, 102, 255)',
+            'rgb(75, 192, 192)'
           ],
           hoverOffset: 4
         }]
