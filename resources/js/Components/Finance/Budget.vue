@@ -1,10 +1,11 @@
 <script setup>
-import {onMounted} from 'vue'; 
-import PieChart from '@/Components/Finance/PieChart.vue'; 
+import {onMounted, ref} from 'vue'; 
+
 import BudgetInfo from '@/Components/Finance/BudgetInfo.vue'; 
 import { Chart, registerables } from 'chart.js';
 
 var pieData = []; 
+var pieLabels = []; 
 Chart.register(...registerables);
 
 
@@ -14,31 +15,38 @@ const props = defineProps({
     }
 });
 
-// function createPieChart(pieData){
-//   const ctx = document.getElementById('myPieChart').getContext('2d');
-//   new Chart(ctx, {
-//       type: 'pie',
-//       data: {
-//         labels: ['Housing', 'Utilities', 'Food', 'Transport', 'Savings'],
-//         datasets: [{
-//           label: 'My Budget',
-//           data: pieData,
-//           backgroundColor: [
-//             'rgb(255, 99, 132)',
-//             'rgb(54, 162, 235)',
-//             'rgb(255, 205, 86)',
-//             'rgb(75, 192, 192)',
-//            'rgb(153, 102, 255)'
-//           ],
-//           hoverOffset: 4
-//         }]
-//       }
-//     });
-// }
+function createPieChart(pieData, pieLabels){
+  const ctx = document.getElementById('myPieChart').getContext('2d');
+  new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: pieLabels,
+        datasets: [{
+          label: 'My Budget',
+          data: pieData,
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+           'rgb(153, 102, 255)'
+          ],
+          hoverOffset: 4
+        }]
+      }
+    });
+}
 
 onMounted(() => {
-    console.log(props.budgets); 
-    //createPieChart(pieData); 
+    Object.keys(props.budgets).forEach(key => {
+       
+        if(props.budgets[key].name != 'Income') {
+            pieData.push(props.budgets[key].amount);
+            pieLabels.push(props.budgets[key].name);
+        }
+    });
+
+    createPieChart(pieData, pieLabels); 
 }); 
 </script>
 <template>
@@ -54,7 +62,7 @@ onMounted(() => {
         </div>
         
         <div class="w-3/5">
-           
+           <canvas id="myPieChart"></canvas>
         </div>
 
     </div>
