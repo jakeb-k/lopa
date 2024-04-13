@@ -67,8 +67,6 @@ class BudgetController extends Controller
         $budget->amount = $validatedData['amount'];
         $budget->progress = $validatedData['progress'];
         $budget->save(); 
-        
-        return route('home'); 
     }
 
     /**

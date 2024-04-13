@@ -20,10 +20,8 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::put('/updatebudget/{id}', function(Request $request, $id) {
-    $bc = new BudgetController();
-    $bc->update($request, $id); 
-});
+Route::put('/updatebudget/{id}', [BudgetController::class, 'update']);
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -5,7 +5,8 @@ import BudgetInfo from '@/Components/Finance/BudgetInfo.vue';
 import { Chart, registerables } from 'chart.js';
 
 var pieData = []; 
-var pieLabels = []; 
+var pieLabels = [];
+let myChart = null;  
 Chart.register(...registerables);
 
 
@@ -17,7 +18,10 @@ const props = defineProps({
 
 function createPieChart(pieData, pieLabels){
   const ctx = document.getElementById('myPieChart').getContext('2d');
-  new Chart(ctx, {
+  if(myChart){
+    myChart.destroy()
+  }
+  myChart = new Chart(ctx, {
       type: 'pie',
       data: {
         labels: pieLabels,
@@ -45,7 +49,7 @@ onMounted(() => {
             pieLabels.push(props.budgets[key].name);
         }
     });
-
+    console.log(pieData); 
     createPieChart(pieData, pieLabels); 
 }); 
 </script>

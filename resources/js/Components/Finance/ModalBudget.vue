@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'; 
 import { router } from '@inertiajs/vue3';
+import { Inertia } from '@inertiajs/inertia';
 import { VueFinalModal } from 'vue-final-modal'
 
 const props = defineProps<{
@@ -21,7 +22,8 @@ const emit = defineEmits<{
 
 function update() {
   router.put(`public/updatebudget/${props.id}`, budget); 
-  window.location.reload();
+  Inertia.get('/lopa/public');
+
   emit('confirm');  
   
 }
