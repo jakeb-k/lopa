@@ -8,7 +8,7 @@
   </template>
   
   <script setup>
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
   
   const props = defineProps({
     total: {
@@ -24,9 +24,15 @@
       default: 'blue'
     }
   });
-  
-  const progressBarWidth = computed(() => {
-    const percentage = Math.max(0, Math.min(100, (props.progress / props.total) * 100));
-    return `${percentage}%`;
-  });
-  </script>
+const total = ref(props.total); // Total value of progress
+const progress = ref(0); // Initial progress value
+
+const progressBarWidth = computed(() => `${(progress.value / total.value) * 100}%`);
+
+// Example of updating progress
+setInterval(() => {
+  if (progress.value < props.progress) {
+    progress.value += props.progress; // Increase by 10 units every second
+  }
+},60);
+</script>

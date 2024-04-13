@@ -65,7 +65,7 @@ function budgetChecker(){
    if(total > income) {
         overBudget.value = true; 
    }
-   console.log(total, income); 
+   console.log(totalProgress, income); 
 }
 
 onMounted(() => {
@@ -93,21 +93,19 @@ const budgetMsg = computed(() =>
 <template>
 
     <div class="mt-10 pt-8 pb-12 px-8 mx-auto h-fit w-2/3 bg-gray-200 relative rounded-xl
-    items-center flex flex-col-reverse lg:flex-row">
+    items-center flex flex-col lg:flex-row">
 
-        <div class="flex flex-col w-1/2 mr-20">
+        <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
         <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
+        <span :class="budgetMsgStyle">{{ budgetMsg }}</span>
           <div v-for="(budget, index) in props.budgets">
-            <div v-if="budget.name == 'Income'">
+            
                 <BudgetInfo :budget="budget"></BudgetInfo>
-                <ProgressBar :progress="totalProgress" :total="total" :color="colors[index]"></ProgressBar>
+                <ProgressBar 
+                v-if="budget.name == 'Income'" :progress="totalProgress" :total="total" :color="colors[index]"></ProgressBar>
+                <ProgressBar v-else-if="budget.name != 'Income'" :progress="budget.progress" :total="budget.amount" :color="colors[index]"></ProgressBar>
+        
             </div>
-            <div v-else>
-                <BudgetInfo :budget="budget"></BudgetInfo>
-                <ProgressBar :progress="budget.progress" :total="budget.amount" :color="colors[index]"></ProgressBar>
-            </div>
-            </div>
-            <span :class="budgetMsgStyle">{{ budgetMsg }}</span>
         </div>
         
         <div class="w-[400px] my-auto">
