@@ -3,18 +3,7 @@ import { onMounted, ref } from 'vue';
 import { useModal } from 'vue-final-modal';
 
 import ModalBudget from './ModalBudget.vue'
-const { open, close } = useModal({
-    component: ModalBudget,
-    attrs: {
-        title: 'Hello World!',
-        onConfirm() {
-        close()
-        },
-    },
-    slots: {
-        default: '<p>UseModal: The content of the modal</p>',
-    },
-}); 
+
 
 const props = defineProps({
     income: Number,
@@ -22,13 +11,30 @@ const props = defineProps({
     name: String, 
     id: Number,
 })
+var title = ref(props.name); 
+var budgetPercent = ref(props.budgetCat);
+var id = ref(props.id);
+var income = ref(props.income); 
+
+const { open, close } = useModal({
+    component: ModalBudget,
+    attrs: {
+        title: title,
+        budgetPercent: budgetPercent,
+        id: id,
+        income: income,
+        onConfirm() {
+        close()
+        },
+    },
+}); 
+
 
 onMounted(()=>{
     if(!props.budgetCat){
         props.budgetCat = 1
     }
 }); 
-
 
 </script>
 <template>

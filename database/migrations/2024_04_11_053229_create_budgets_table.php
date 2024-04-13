@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
-            $table->decimal('housing');
-            $table->decimal('utils');
-            $table->decimal('food');
-            $table->decimal('transport');
-            $table->decimal('savings');
-            $table->decimal('income'); 
+            $table->string('name'); 
+            $table->decimal('amount');
+            $table->decimal('progress');
+            $table->boolean('paid'); 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 

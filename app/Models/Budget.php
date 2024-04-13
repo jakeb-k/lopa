@@ -9,7 +9,7 @@ class Budget extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['housing','utils','food','transport','savings','custom'];
+    protected $fillable = ['name','amount','progress','over', 'paid'];
 
     function user(){
         return $this->belongsTo('App\Models\User'); 
