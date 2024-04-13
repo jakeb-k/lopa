@@ -9,7 +9,7 @@ Chart.register(...registerables);
 
 
 const props = defineProps({
-    budget: {
+    budgets: {
         type: Object
     }
 });
@@ -37,12 +37,7 @@ const props = defineProps({
 // }
 
 onMounted(() => {
-//    pieData=[(props.budget['income'] * props.budget.housing), 
-//             (props.budget['income'] * props.budget.utils),
-//             (props.budget['income'] * props.budget.food),
-//             (props.budget['income'] * props.budget.transport),
-//             (props.budget['income'] * props.budget.savings)
-//     ];
+    console.log(props.budgets); 
     //createPieChart(pieData); 
 }); 
 </script>
@@ -52,7 +47,9 @@ onMounted(() => {
 
         <div class="flex flex-col w-1/2 mr-20">
         <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
-          
+          <div v-for="budget in props.budgets">
+            <BudgetInfo :budget="budget"></BudgetInfo>
+          </div>
             
         </div>
         

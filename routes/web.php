@@ -8,14 +8,14 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     $bc = new BudgetController(); 
-    $budgetData = $bc->show(1);
+    $budgetData = $bc->index();
   
     return Inertia::render('Home', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
-        'budget' => $budgetData,
+        'budgets' => $budgetData,
     ]);
 });
 
