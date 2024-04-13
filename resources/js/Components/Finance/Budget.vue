@@ -2,11 +2,17 @@
 import {onMounted, ref, computed} from 'vue'; 
 
 import BudgetInfo from '@/Components/Finance/BudgetInfo.vue'; 
+import ProgressBar from '@/Components/Finance/ProgressBar.vue'; 
+
 import { Chart, registerables } from 'chart.js';
+
 
 var pieData = []; 
 var pieLabels = [];
+var colors = ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)','rgb(153, 102, 255)'];
 var total = 0;
+var totalProgress = 0; 
 var overBudget = ref(false); 
 var income; 
 let myChart = null;  
@@ -52,11 +58,14 @@ function budgetChecker(){
        }
        else {
             total += props.budgets[key].amount; 
+            totalProgress += props.budgets[key].progress; 
+
        }
    });
    if(total > income) {
-        overBudget = true; 
+        overBudget.value = true; 
    }
+   console.log(total, income); 
 }
 
 onMounted(() => {
@@ -70,12 +79,12 @@ onMounted(() => {
     budgetChecker(); 
     createPieChart(pieData, pieLabels); 
 }); 
-const budgetMsgStyle= computed(() =>
+const budgetMsgStyle = computed(() =>
     overBudget.value
-        ? 'text-red-400 text-lg font-bold w-full'
-        : 'text-green-600 text-lg font-bold basis-full'
+        ? 'bottom-0 absolute text-red-500 text-lg font-bold w-full'
+        : 'absolute bottom-0 text-green-600 text-lg font-bold basis-full'
 );
-const budgetMsg= computed(() =>
+const budgetMsg = computed(() =>
     overBudget.value
         ? 'You are over budget! Adjust your spendings!'
         : 'Great work! You are within budget.'
@@ -83,19 +92,28 @@ const budgetMsg= computed(() =>
 </script>
 <template>
 
-    <div class="mt-10 p-8 mx-auto h-fit w-fit bg-gray-200 rounded-xl flex flex-row">
+    <div class="mt-10 pt-8 pb-12 px-8 mx-auto h-fit w-2/3 bg-gray-200 relative rounded-xl
+    items-center flex flex-col-reverse lg:flex-row">
 
         <div class="flex flex-col w-1/2 mr-20">
         <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
-          <div v-for="budget in props.budgets">
-            <BudgetInfo :budget="budget"></BudgetInfo>
-          </div>
-          <span :class="budgetMsgStyle">{{ budgetMsg }}</span>
+          <div v-for="(budget, index) in props.budgets">
+            <div v-if="budget.name == 'Income'">
+                <BudgetInfo :budget="budget"></BudgetInfo>
+                <ProgressBar :progress="totalProgress" :total="total" :color="colors[index]"></ProgressBar>
+            </div>
+            <div v-else>
+                <BudgetInfo :budget="budget"></BudgetInfo>
+                <ProgressBar :progress="budget.progress" :total="budget.amount" :color="colors[index]"></ProgressBar>
+            </div>
+            </div>
+            <span :class="budgetMsgStyle">{{ budgetMsg }}</span>
         </div>
         
-        <div class="w-3/5">
+        <div class="w-[400px] my-auto">
            <canvas id="myPieChart"></canvas>
         </div>
-
+        
     </div>
+    
 </template>
