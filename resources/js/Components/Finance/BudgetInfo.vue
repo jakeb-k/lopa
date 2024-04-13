@@ -14,7 +14,7 @@ const props = defineProps({
 
 var title = ref(props.budget.name); 
 var amount = ref(props.budget.amount);
-var progress = ref(0);
+var progress = ref(props.budget.progress);
 var id = ref(props.budget.id);
 
 
@@ -23,15 +23,14 @@ const { open, close } = useModal({
     attrs: {
         title: title,
         amount: amount,
+        progress: progress,
         id: id,
         onConfirm() {
         close()
         },
     },
 }); 
-function update() {
-  router.put(`/lopa/public/updatebudget/${id}`, [amount,progress]); 
-}
+
 
 onMounted(()=>{
 
@@ -41,7 +40,7 @@ onMounted(()=>{
 <template>
    <div class="mt-4 flex justify-between items-center w-full">
         <span class="basis-1/3">{{ props.budget.name }}: </span>
-        <span class="basis-1/4">${{props.budget.amount }}</span>
+        <span class="basis-1/4">${{props.budget.progress }}/{{props.budget.amount }}</span>
         <button class="basis-1/6 hover:text-blue-500 border border-blue-500 hover:underline p-2 rounded-2xl
         hover:bg-white duration-150 ease-in-out"
         @click="() => open()">UPDATE</button>

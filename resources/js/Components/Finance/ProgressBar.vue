@@ -22,6 +22,9 @@
     color: {
       type: String,
       default: 'blue'
+    },
+    name: {
+      type: String,
     }
   });
 const total = ref(props.total); // Total value of progress

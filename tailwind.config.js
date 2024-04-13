@@ -15,6 +15,9 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            backgroundImage: {
+                gold: 'linear-gradient(to right, rgb(192, 192, 192) 0%, rgb(255, 215, 0) 100%)',
+            }
         },
     },
 

@@ -7,13 +7,15 @@ import { VueFinalModal } from 'vue-final-modal'
 const props = defineProps<{
   title?: string,
   amount: number,
+  progress: number,
   id: number,
 }>()
 var amount = ref(props.amount);
+var progress = ref(props.progress);
 
 const budget = reactive({
   amount: amount,
-  progress: 1,
+  progress: progress,
 });
 
 const emit = defineEmits<{
@@ -39,6 +41,9 @@ function update() {
     </h1>
     <label for="amount">Amount for {{ title }}</label>
     <input id="amount" type="number" v-model="budget.amount"> 
+
+    <label for="progress">Progress for {{ title }}</label>
+    <input id="progress" type="number" v-model="budget.progress"> 
     <slot />
     <button class="mt-1 ml-auto px-2 border rounded-lg" @click="update()">
       UPDATE

@@ -9,8 +9,8 @@ import { Chart, registerables } from 'chart.js';
 
 var pieData = []; 
 var pieLabels = [];
-var colors = ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)',
-              'rgb(75, 192, 192)','rgb(153, 102, 255)'];
+var colors = ['gold', 'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 120, 0)',
+              'rgb(153, 102, 255)','rgb(75, 192, 192)'];
 var total = 0;
 var totalProgress = 0; 
 var overBudget = ref(false); 
@@ -41,9 +41,9 @@ function createPieChart(pieData, pieLabels){
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)',
+            'rgb(255, 120, 0)',
+         'rgb(153, 102, 255)',
             'rgb(75, 192, 192)',
-           'rgb(153, 102, 255)'
           ],
           hoverOffset: 4
         }]
@@ -86,7 +86,7 @@ const budgetMsgStyle = computed(() =>
 );
 const budgetMsg = computed(() =>
     overBudget.value
-        ? 'You are over budget! Adjust your spendings!'
+        ? 'Your budget is not equal! Adjust your allocations!'
         : 'Great work! You are within budget.'
 );
 </script>
@@ -101,9 +101,7 @@ const budgetMsg = computed(() =>
           <div v-for="(budget, index) in props.budgets">
             
                 <BudgetInfo :budget="budget"></BudgetInfo>
-                <ProgressBar 
-                v-if="budget.name == 'Income'" :progress="totalProgress" :total="total" :color="colors[index]"></ProgressBar>
-                <ProgressBar v-else-if="budget.name != 'Income'" :progress="budget.progress" :total="budget.amount" :color="colors[index]"></ProgressBar>
+                <ProgressBar :progress="budget.progress" :total="budget.amount" :color="colors[index]"></ProgressBar>
         
             </div>
         </div>
