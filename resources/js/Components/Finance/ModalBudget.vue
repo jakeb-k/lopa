@@ -21,7 +21,9 @@ const emit = defineEmits<{
 
 function update() {
   router.put(`public/updatebudget/${props.id}`, budget); 
+  window.location.reload();
   emit('confirm');  
+  
 }
 </script>
 

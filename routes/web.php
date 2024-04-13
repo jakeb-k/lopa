@@ -18,7 +18,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'budgets' => $budgetData,
     ]);
-});
+})->name('home');
 
 Route::put('/updatebudget/{id}', function(Request $request, $id) {
     $bc = new BudgetController();
