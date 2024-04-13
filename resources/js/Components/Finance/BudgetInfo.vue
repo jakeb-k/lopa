@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useModal } from 'vue-final-modal';
+import { router } from '@inertiajs/vue3';
 
 import ModalBudget from './ModalBudget.vue'
 
@@ -13,7 +14,9 @@ const props = defineProps({
 
 var title = ref(props.budget.name); 
 var amount = ref(props.budget.amount);
+var progress = ref(0);
 var id = ref(props.budget.id);
+
 
 const { open, close } = useModal({
     component: ModalBudget,
@@ -26,7 +29,9 @@ const { open, close } = useModal({
         },
     },
 }); 
-
+function update() {
+  router.put(`/lopa/public/updatebudget/${id}`, [amount,progress]); 
+}
 
 onMounted(()=>{
 

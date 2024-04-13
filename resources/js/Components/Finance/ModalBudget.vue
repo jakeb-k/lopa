@@ -1,18 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue'; 
+import { ref, reactive } from 'vue'; 
+import { router } from '@inertiajs/vue3';
 import { VueFinalModal } from 'vue-final-modal'
 
 const props = defineProps<{
   title?: string,
-  budgetPercent: number,
-  income: number,
+  amount: number,
   id: number,
 }>()
-var budgetPercent = ref(props.budgetPercent);
+var amount = ref(props.amount);
+
+const budget = reactive({
+  amount: amount,
+  progress: 1,
+});
 
 const emit = defineEmits<{
   (e: 'confirm'): void
 }>()
+
+function update() {
+  router.put(`public/updatebudget/${props.id}`, budget); 
+  emit('confirm');  
+}
 </script>
 
 <template>
@@ -23,10 +33,10 @@ const emit = defineEmits<{
     <h1 class="text-xl">
       {{ title }}
     </h1>
-    <label>Amount for {{ title }}</label>
-    <input type="number" :value="income * budgetPercent "> 
+    <label for="amount">Amount for {{ title }}</label>
+    <input id="amount" type="number" v-model="budget.amount"> 
     <slot />
-    <button class="mt-1 ml-auto px-2 border rounded-lg" @click="emit('confirm')">
+    <button class="mt-1 ml-auto px-2 border rounded-lg" @click="update()">
       UPDATE
     </button>
   </VueFinalModal>

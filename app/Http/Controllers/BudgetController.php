@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Budget;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 
 class BudgetController extends Controller
@@ -55,9 +56,18 @@ class BudgetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Budget $budget)
+    public function update(Request $request, $id)
     {
-        //
+       $budget = Budget::find($id); 
+
+       $validatedData = $request->validate([
+        'amount' => 'required|integer|gt:0',
+        'progress' => 'required|integer|gt:0'
+        ]);
+        $budget->amount = $validatedData['amount'];
+        $budget->progress = $validatedData['progress'];
+        $budget->save(); 
+        return Inertia::location(url('/')); 
     }
 
     /**

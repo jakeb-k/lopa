@@ -5,6 +5,7 @@ use App\Http\Controllers\BudgetController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     $bc = new BudgetController(); 
@@ -19,6 +20,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::put('/updatebudget/{id}', function(Request $request, $id) {
+    $bc = new BudgetController();
+    $bc->update($request, $id); 
+});
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
