@@ -51,7 +51,7 @@ onMounted(() => {
 </script>
 <template>
 
-    <div class="mt-10 p-8 mx-auto w-3/5 h-[450px] bg-gray-200 rounded-xl flex flex-row">
+    <div class="mt-10 p-8 mx-auto h-fit w-fit lg:w-3/5 lg:h-[450px] bg-gray-200 rounded-xl flex flex-row">
 
         <div class="flex flex-col w-1/2 mr-20">
         <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
