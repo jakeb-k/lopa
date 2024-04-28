@@ -20,7 +20,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function version(Request $request): string|null
     {
-        return parent::version($request);
+        return parent::version($request) ?? md5_file(public_path('mix-manifest.json'));
     }
 
     /**
@@ -39,6 +39,11 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+            'flash' => [
+                'success' => session('success'),
+                'problem'=> session('problem'),   
+                'message'=> session('message'), 
+            ]
         ];
     }
 }

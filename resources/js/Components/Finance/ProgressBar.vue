@@ -34,6 +34,7 @@ const progressBarWidth = computed(() => `${(progress.value / total.value) * 100}
 
 // Example of updating progress
 setInterval(() => {
+  progress.value = 0; 
   if (progress.value < props.progress) {
     progress.value += props.progress; // Increase by 10 units every second
   }

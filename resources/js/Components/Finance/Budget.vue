@@ -81,8 +81,8 @@ onMounted(() => {
 }); 
 const budgetMsgStyle = computed(() =>
     overBudget.value
-        ? 'bottom-0 absolute text-red-500 text-lg font-bold w-full'
-        : 'absolute bottom-0 text-green-600 text-lg font-bold basis-full'
+        ? 'text-red-500 text-lg font-bold w-full'
+        : 'text-green-600 text-lg font-bold basis-full'
 );
 const budgetMsg = computed(() =>
     overBudget.value
@@ -97,6 +97,8 @@ const budgetMsg = computed(() =>
 
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
         <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
+        <div class="text-red-400 text-lg w-full my-2" v-if="$page.props.flash.message">{{ $page.props.flash.message }}</div>
+        <div class="text-green-600 text-lg w-full my-2" v-if="$page.props.flash.success">{{ $page.props.flash.success }}</div>
         <span :class="budgetMsgStyle">{{ budgetMsg }}</span>
           <div v-for="(budget, index) in props.budgets">
             
@@ -113,3 +115,11 @@ const budgetMsg = computed(() =>
     </div>
     
 </template>
+<script>
+    export default {
+
+        mounted() {
+            console.log(this.$page.props)
+        }
+    }
+</script>

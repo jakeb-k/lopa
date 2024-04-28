@@ -7,9 +7,8 @@ import ModalBudget from './ModalBudget.vue'
 
 
 const props = defineProps({
-    budget: {
-        type: Object
-    }
+    budget: Object, 
+    flash: Object
 })
 
 var title = ref(props.budget.name); 
@@ -44,7 +43,7 @@ onMounted(()=>{
         <button class="basis-1/6 hover:text-blue-500 border border-blue-500 hover:underline p-2 rounded-2xl
         hover:bg-white duration-150 ease-in-out"
         @click="() => open()">UPDATE</button>
-
+    
     </div>
 
 </template>

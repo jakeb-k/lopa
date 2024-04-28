@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Budget;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
 
 
 class BudgetController extends Controller
@@ -61,12 +62,20 @@ class BudgetController extends Controller
        $budget = Budget::find($id); 
 
        $validatedData = $request->validate([
-        'amount' => 'required|integer|gt:0',
-        'progress' => 'required|integer|gt:0'
+        'amount' => 'required|numeric|gte:0',
+        'progress' => 'required|numeric|gte:0'
         ]);
         $budget->amount = $validatedData['amount'];
         $budget->progress = $validatedData['progress'];
-        $budget->save(); 
+        
+        if($budget->amount < $budget->progress){
+            session()->flash('message', 'Progress cannot exceed the Total!');
+        } else {
+            session()->flash('success', 'Budget was Updated!');
+            $budget->save(); 
+        }
+
+        return redirect()->route('home'); 
     }
 
     /**
