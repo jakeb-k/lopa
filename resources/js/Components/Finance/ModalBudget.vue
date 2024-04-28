@@ -24,8 +24,6 @@ const emit = defineEmits<{
 
 function update() {
   router.put(`public/updatebudget/${props.id}`, budget); 
-  Inertia.get('/lopa/public');
-
   emit('confirm');  
   
 }
@@ -44,7 +42,7 @@ function update() {
 
     <label for="progress">Progress for {{ title }}</label>
     <input id="progress" type="number" v-model="budget.progress"> 
-    <slot />
+    
     <button class="mt-1 ml-auto px-2 border rounded-lg" @click="update()">
       UPDATE
     </button>

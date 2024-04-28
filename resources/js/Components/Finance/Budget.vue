@@ -97,6 +97,7 @@ const budgetMsg = computed(() =>
 
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
         <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
+        <div class="text-green-600 mt-8" v-if="$page.props.flash.success">{{ $page.props.flash.success }}</div>
         <span :class="budgetMsgStyle">{{ budgetMsg }}</span>
           <div v-for="(budget, index) in props.budgets">
             
@@ -113,3 +114,11 @@ const budgetMsg = computed(() =>
     </div>
     
 </template>
+<script>
+    export default {
+
+        mounted() {
+            console.log(this.$page.props)
+        }
+    }
+</script>
