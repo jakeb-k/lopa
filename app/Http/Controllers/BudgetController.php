@@ -69,7 +69,7 @@ class BudgetController extends Controller
         $budget->progress = $validatedData['progress'];
         
         if($budget->amount < $budget->progress){
-            session()->flash('problem', 'Progress cannot exceed the Total!');
+            session()->flash('message', 'Progress cannot exceed the Total!');
         } else {
             session()->flash('success', 'Budget was Updated!');
             $budget->save(); 
