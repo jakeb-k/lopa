@@ -75,7 +75,7 @@ class BudgetController extends Controller
             $budget->save(); 
         }
 
-        Inertia::location(url('/'));
+        return redirect()->route('home'); 
     }
 
     /**

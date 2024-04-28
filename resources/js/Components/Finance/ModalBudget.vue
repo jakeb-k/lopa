@@ -25,6 +25,8 @@ const emit = defineEmits<{
 function update() {
   router.put(`public/updatebudget/${props.id}`, budget); 
   emit('confirm');  
+
+  Inertia.reload({ only: ['budgets'] });
   
 }
 </script>
