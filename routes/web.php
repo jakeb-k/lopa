@@ -20,7 +20,7 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::put('/updatebudget/{id}', [BudgetController::class, 'update']);
+Route::put('/updatebudget/{id}', [BudgetController::class, 'update'])->name('budget.update');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
