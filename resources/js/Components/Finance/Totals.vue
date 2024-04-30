@@ -1,27 +1,30 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, computed, onBeforeMount } from 'vue';
 
 
 const props = defineProps({
     total: Number,
     income: Number, 
 })
+
 var budgetTotal = ref(props.total)
 var budgetIncome = ref(props.income) 
-var isBudgetOver = false; 
+var isBudgetOver = ref(false); 
 
 
 function overUnder (isOverBudget, total, income){
 
     if(total > income){
         isOverBudget = true; 
-    } else if(total <= income) {
+    } else {
         isOverBudget = false; 
     }
+
     return isOverBudget; 
 }
-onMounted(() => {
-    isBudgetOver = overUnder(isBudgetOver, budgetTotal, budgetIncome); 
+
+onBeforeMount(() => {
+    isBudgetOver.value = overUnder(isBudgetOver.value, budgetTotal.value, budgetIncome.value); 
 });
 
 const budgetMsgStyle = computed(() =>
@@ -31,7 +34,7 @@ const budgetMsgStyle = computed(() =>
 );
 const budgetMsg = computed(() =>
     isBudgetOver.value
-        ? 'Your budget is not equal! Adjust your allocations!'
+        ? 'You have spent more than your current income!'
         : 'Great work! You are within budget.'
 );
 
@@ -39,7 +42,7 @@ const budgetMsg = computed(() =>
 <template>
     <div>
         <div>
-            <p>{{ total }}/{{ income }}</p>
+            <p :class=budgetMsgStyle>{{ total }}/{{ income }}</p>
             <p :class="budgetMsgStyle">{{ budgetMsg }}</p>
         </div>
     </div>

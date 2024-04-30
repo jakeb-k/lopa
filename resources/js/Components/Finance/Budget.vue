@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref, computed} from 'vue'; 
+import {onMounted, ref, computed, onBeforeMount} from 'vue'; 
 
 import BudgetInfo from '@/Components/Finance/BudgetInfo.vue'; 
 import ProgressBar from '@/Components/Finance/ProgressBar.vue'; 
@@ -60,7 +60,10 @@ function budgetChecker(){
        else {
             total += props.budgets[key].amount; 
             totalProgress += props.budgets[key].progress; 
-
+            
+            //Generate pie data values 
+            pieData.push(props.budgets[key].amount);
+            pieLabels.push(props.budgets[key].name);
        }
    });
    if(total > income) {
@@ -68,28 +71,13 @@ function budgetChecker(){
    }
    console.log(totalProgress, income); 
 }
-
-onMounted(() => {
-    Object.keys(props.budgets).forEach(key => {
-       
-        if(props.budgets[key].name != 'Income') {
-            pieData.push(props.budgets[key].amount);
-            pieLabels.push(props.budgets[key].name);
-        }
-    });
+onBeforeMount(() => {
     budgetChecker(); 
+}); 
+onMounted(() => {
     createPieChart(pieData, pieLabels); 
 }); 
-const budgetMsgStyle = computed(() =>
-    overBudget.value
-        ? 'text-red-500 text-lg font-bold w-full'
-        : 'text-green-600 text-lg font-bold basis-full'
-);
-const budgetMsg = computed(() =>
-    overBudget.value
-        ? 'Your budget is not equal! Adjust your allocations!'
-        : 'Great work! You are within budget.'
-);
+
 </script>
 <template>
 
