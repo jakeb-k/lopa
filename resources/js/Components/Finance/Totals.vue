@@ -29,20 +29,21 @@ onBeforeMount(() => {
 
 const budgetMsgStyle = computed(() =>
     isBudgetOver.value
-        ? 'text-red-500 text-lg font-bold w-full'
-        : 'text-green-600 text-lg font-bold basis-full'
+        ? 'text-red-500 text-lg w-full'
+        : 'text-green-600 text-lg'
 );
 const budgetMsg = computed(() =>
     isBudgetOver.value
         ? 'You have spent more than your current income!'
-        : 'Great work! You are within budget.'
+        : "Great work! You're spending within your means."
 );
 
 </script>
 <template>
     <div>
         <div>
-            <p :class=budgetMsgStyle>{{ total }}/{{ income }}</p>
+            <p :class=budgetMsgStyle>Weekly Spendings: <span class="font-bold">{{ total }}</span></p>
+            <p :class=budgetMsgStyle>Weekly Income: <span class="font-bold">{{ income }}</span></p>
             <p :class="budgetMsgStyle">{{ budgetMsg }}</p>
         </div>
     </div>

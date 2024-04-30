@@ -13,7 +13,7 @@ var pieLabels = [];
 var colors = ['gold', 'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 120, 0)',
               'rgb(153, 102, 255)','rgb(75, 192, 192)'];
 var total = 0;
-var totalProgress = 0; 
+var budgetProgress = 0; 
 var overBudget = ref(false); 
 
 var income; 
@@ -62,7 +62,7 @@ function budgetChecker(){
        }
        else {
             total += props.budgets[key].amount; 
-            totalProgress += props.budgets[key].progress; 
+            budgetProgress += props.budgets[key].progress; 
             
             //Generate pie data values 
             pieData.push(props.budgets[key].amount);
@@ -72,7 +72,7 @@ function budgetChecker(){
    if(total > income) {
         overBudget.value = true; 
    }
-   console.log(totalProgress, income); 
+   console.log(budgetProgress, income); 
 }
 onBeforeMount(() => {
     budgetChecker(); 
@@ -89,7 +89,9 @@ onMounted(() => {
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
             <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
 
-            <div class="text-red-400 text-lg w-full my-2" v-if="budgetsMoreThanIncome">Your budgets exceed your income!</div>
+            <div class="text-green-600 text-lg w-full my-2" v-if="!budgetsMoreThanIncome">Your budgets match your income. <span class="font-bold">{{ total }} / {{ income }}</span></div>
+            <div class="text-red-400 text-lg w-full my-2" v-if="budgetsMoreThanIncome">Your budgets exceed your income! <span class="font-bold">{{ total }} / {{ income }}</span></div>
+            
             <div class="text-red-400 text-lg w-full my-2" v-if="$page.props.flash.message">{{ $page.props.flash.message }}</div>
             <div class="text-green-600 text-lg w-full my-2" v-if="$page.props.flash.success">{{ $page.props.flash.success }}</div>
 
@@ -100,7 +102,7 @@ onMounted(() => {
         </div>
         
         <div class="w-4/5 lg:w-1/2 h-full m-auto flex flex-col justify-between">
-            <Totals :income=income :total=totalProgress ></Totals>
+            <Totals :income=income :total=budgetProgress ></Totals>
             <div class="pt-24">
                 <canvas id="myPieChart"></canvas>
             </div>
