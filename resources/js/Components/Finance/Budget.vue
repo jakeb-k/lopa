@@ -59,7 +59,7 @@ function budgetChecker(){
             total += props.budgets[key].amount; 
             budgetProgress += props.budgets[key].progress; 
             
-            if(props.budgets[key].over){
+            if(props.budgets[key].progress > props.budgets[key].amount){
                 let newColor = 'rgb(255,0,0)';
                 colors.splice(counter, 1, newColor); 
             }
