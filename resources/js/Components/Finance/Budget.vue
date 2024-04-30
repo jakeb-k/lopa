@@ -12,10 +12,13 @@ var pieData = [];
 var pieLabels = [];
 var colors = ['gold', 'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 120, 0)',
               'rgb(153, 102, 255)','rgb(75, 192, 192)'];
+var pieColors = colors.slice(1);
 var total = 0;
-var totalProgress = 0; 
+var budgetProgress = 0; 
 var overBudget = ref(false); 
+
 var income; 
+var budgetsMoreThanIncome; 
 let myChart = null;  
 
 Chart.register(...registerables);
@@ -39,40 +42,42 @@ function createPieChart(pieData, pieLabels){
         datasets: [{
           label: 'My Budget',
           data: pieData,
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 120, 0)',
-         'rgb(153, 102, 255)',
-            'rgb(75, 192, 192)',
-          ],
+          backgroundColor: pieColors,
           hoverOffset: 4
         }]
       }
     });
 }
 function budgetChecker(){
+    let counter = 0; 
     Object.keys(props.budgets).forEach(key => {
-       
        if(props.budgets[key].name == 'Income') {
             income = props.budgets[key].amount; 
+            budgetsMoreThanIncome = props.budgets[key].over; 
        }
        else {
             total += props.budgets[key].amount; 
-            totalProgress += props.budgets[key].progress; 
+            budgetProgress += props.budgets[key].progress; 
             
+            if(props.budgets[key].progress > props.budgets[key].amount){
+                let newColor = 'rgb(255,0,0)';
+                colors.splice(counter, 1, newColor); 
+            }
             //Generate pie data values 
             pieData.push(props.budgets[key].amount);
             pieLabels.push(props.budgets[key].name);
        }
+       counter = counter + 1; 
+       console.log(counter); 
    });
    if(total > income) {
         overBudget.value = true; 
    }
-   console.log(totalProgress, income); 
+   //console.log(budgetProgress, income); 
 }
 onBeforeMount(() => {
     budgetChecker(); 
+    console.log(colors); 
 }); 
 onMounted(() => {
     createPieChart(pieData, pieLabels); 
@@ -85,6 +90,10 @@ onMounted(() => {
     items-center flex flex-col lg:flex-row">
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
             <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
+
+            <div class="text-green-600 text-lg w-full my-2" v-if="!budgetsMoreThanIncome">Your budgets match your income. <span class="font-bold">{{ total }} / {{ income }}</span></div>
+            <div class="text-red-400 text-lg w-full my-2" v-if="budgetsMoreThanIncome">Your budgets exceed your income! <span class="font-bold">{{ total }} / {{ income }}</span></div>
+            
             <div class="text-red-400 text-lg w-full my-2" v-if="$page.props.flash.message">{{ $page.props.flash.message }}</div>
             <div class="text-green-600 text-lg w-full my-2" v-if="$page.props.flash.success">{{ $page.props.flash.success }}</div>
 
@@ -95,7 +104,7 @@ onMounted(() => {
         </div>
         
         <div class="w-4/5 lg:w-1/2 h-full m-auto flex flex-col justify-between">
-            <Totals :income=income :total=totalProgress ></Totals>
+            <Totals :income=income :total=budgetProgress ></Totals>
             <div class="pt-24">
                 <canvas id="myPieChart"></canvas>
             </div>
@@ -108,7 +117,7 @@ onMounted(() => {
     export default {
 
         mounted() {
-            console.log(this.$page.props)
+            //console.log(this.$page.props)
         }
     }
 </script>
