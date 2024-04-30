@@ -3,6 +3,7 @@ import {onMounted, ref, computed} from 'vue';
 
 import BudgetInfo from '@/Components/Finance/BudgetInfo.vue'; 
 import ProgressBar from '@/Components/Finance/ProgressBar.vue'; 
+import Totals from './Totals.vue';
 
 import { Chart, registerables } from 'chart.js';
 
@@ -94,22 +95,22 @@ const budgetMsg = computed(() =>
 
     <div class="mt-10 pt-8 pb-12 px-8 mx-auto h-fit w-2/3 bg-gray-200 relative rounded-xl
     items-center flex flex-col lg:flex-row">
-
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
-        <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
-        <div class="text-red-400 text-lg w-full my-2" v-if="$page.props.flash.message">{{ $page.props.flash.message }}</div>
-        <div class="text-green-600 text-lg w-full my-2" v-if="$page.props.flash.success">{{ $page.props.flash.success }}</div>
-        <span :class="budgetMsgStyle">{{ budgetMsg }}</span>
-          <div v-for="(budget, index) in props.budgets">
-            
+            <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
+            <div class="text-red-400 text-lg w-full my-2" v-if="$page.props.flash.message">{{ $page.props.flash.message }}</div>
+            <div class="text-green-600 text-lg w-full my-2" v-if="$page.props.flash.success">{{ $page.props.flash.success }}</div>
+
+            <div v-for="(budget, index) in props.budgets">
                 <BudgetInfo :budget="budget"></BudgetInfo>
                 <ProgressBar :progress="budget.progress" :total="budget.amount" :color="colors[index]"></ProgressBar>
-        
             </div>
         </div>
         
-        <div class="w-[400px] my-auto">
-           <canvas id="myPieChart"></canvas>
+        <div class="w-4/5 lg:w-1/2 h-full m-auto flex flex-col justify-between">
+            <Totals :income=income :total=totalProgress ></Totals>
+            <div class="pt-24">
+                <canvas id="myPieChart"></canvas>
+            </div>
         </div>
         
     </div>
