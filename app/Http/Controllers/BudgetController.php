@@ -74,8 +74,6 @@ class BudgetController extends Controller
             session()->flash('success', 'Budget was Updated!');
             $budget->save(); 
         }
-
-        return redirect()->route('home'); 
     }
 
     /**

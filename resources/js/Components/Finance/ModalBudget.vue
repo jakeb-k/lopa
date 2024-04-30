@@ -22,12 +22,23 @@ const emit = defineEmits<{
   (e: 'confirm'): void
 }>()
 
-function update() {
-  router.put(`public/updatebudget/${props.id}`, budget); 
-  emit('confirm');  
+const isSubmitting = ref(false);
 
-  Inertia.reload({ only: ['budgets'] });
-  
+function update() {
+  isSubmitting.value = true;  // Start submission
+
+  // Use Inertia.put to make a PUT request
+  Inertia.put(`public/updatebudget/${props.id}`, budget, {
+    preserveScroll: true,
+    onSuccess: () => {
+      emit('confirm');
+      isSubmitting.value = false;  // End submission after reload completes
+    },
+    onError: () => {
+      console.error("Error during the update process");
+      isSubmitting.value = false;  // Reset on error as well
+    }
+  });
 }
 </script>
 
