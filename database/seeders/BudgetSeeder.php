@@ -17,6 +17,7 @@ class BudgetSeeder extends Seeder
             'name' => 'Income',
             'amount' =>1000,
             'progress' =>1000,
+            'over'=> false,
             'paid' => true,
             'user_id' => 1,
         ]);
@@ -24,6 +25,7 @@ class BudgetSeeder extends Seeder
             'name' => 'Housing',
             'amount' =>300,
             'progress' =>300,
+            'over'=> false,
             'paid' => true,
             'user_id' => 1,
         ]);
@@ -31,6 +33,7 @@ class BudgetSeeder extends Seeder
             'name' => 'Utilities',
             'amount' =>100,
             'progress' =>0,
+            'over'=> false,
             'paid' => false,
             'user_id' => 1,
         ]);
@@ -38,6 +41,7 @@ class BudgetSeeder extends Seeder
             'name' => 'Food',
             'amount' =>200,
             'progress' =>120,
+            'over'=> false,
             'paid' => false,
             'user_id' => 1,
         ]);
@@ -45,6 +49,7 @@ class BudgetSeeder extends Seeder
             'name' => 'Transport',
             'amount' =>100,
             'progress' =>25,
+            'over'=> false,
             'paid' => false,
             'user_id' => 1,
         ]);
@@ -52,6 +57,7 @@ class BudgetSeeder extends Seeder
             'name' => 'Savings',
             'amount' =>300,
             'progress' =>50,
+            'over'=> false,
             'paid' => false,
             'user_id' => 1,
         ]);

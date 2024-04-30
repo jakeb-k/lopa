@@ -17,6 +17,7 @@ return new class extends Migration
             $table->decimal('amount');
             $table->decimal('progress');
             $table->boolean('paid'); 
+            $table->boolean('over'); 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 

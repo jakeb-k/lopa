@@ -59,21 +59,35 @@ class BudgetController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $budget = Budget::find($id); 
-
-       $validatedData = $request->validate([
-        'amount' => 'required|numeric|gte:0',
-        'progress' => 'required|numeric|gte:0'
+        $budget = Budget::find($id); 
+        
+        $validatedData = $request->validate([
+            'amount' => 'required|numeric|gte:0',
+            'progress' => 'required|numeric|gte:0'
         ]);
+
         $budget->amount = $validatedData['amount'];
         $budget->progress = $validatedData['progress'];
-        
-        if($budget->amount < $budget->progress){
-            session()->flash('message', 'Progress cannot exceed the Total!');
+
+        $budget->save(); 
+
+        //for making it for multiple people youd need to search by their id
+        //or destruction would ensue
+        $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+
+        $incomeBudget = Budget::where('name', 'Income')->first(); 
+
+        $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+
+        if($budgetTotal > $incomeTotal) {
+            $incomeBudget->over = true; 
+            $incomeBudget->save(); 
         } else {
-            session()->flash('success', 'Budget was Updated!');
-            $budget->save(); 
+            session()->flash('success', 'Your budget was successfully updated!'); 
+            $incomeBudget->over = false; 
+            $incomeBudget->save();
         }
+
     }
 
     /**

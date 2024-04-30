@@ -15,7 +15,9 @@ var colors = ['gold', 'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 120, 0
 var total = 0;
 var totalProgress = 0; 
 var overBudget = ref(false); 
+
 var income; 
+var budgetsMoreThanIncome; 
 let myChart = null;  
 
 Chart.register(...registerables);
@@ -56,6 +58,7 @@ function budgetChecker(){
        
        if(props.budgets[key].name == 'Income') {
             income = props.budgets[key].amount; 
+            budgetsMoreThanIncome = props.budgets[key].over; 
        }
        else {
             total += props.budgets[key].amount; 
@@ -85,6 +88,8 @@ onMounted(() => {
     items-center flex flex-col lg:flex-row">
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
             <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
+
+            <div class="text-red-400 text-lg w-full my-2" v-if="budgetsMoreThanIncome">Your budgets exceed your income!</div>
             <div class="text-red-400 text-lg w-full my-2" v-if="$page.props.flash.message">{{ $page.props.flash.message }}</div>
             <div class="text-green-600 text-lg w-full my-2" v-if="$page.props.flash.success">{{ $page.props.flash.success }}</div>
 
