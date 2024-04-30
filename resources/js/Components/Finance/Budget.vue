@@ -12,6 +12,7 @@ var pieData = [];
 var pieLabels = [];
 var colors = ['gold', 'rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 120, 0)',
               'rgb(153, 102, 255)','rgb(75, 192, 192)'];
+var pieColors = colors.slice(1);
 var total = 0;
 var budgetProgress = 0; 
 var overBudget = ref(false); 
@@ -41,21 +42,15 @@ function createPieChart(pieData, pieLabels){
         datasets: [{
           label: 'My Budget',
           data: pieData,
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 120, 0)',
-         'rgb(153, 102, 255)',
-            'rgb(75, 192, 192)',
-          ],
+          backgroundColor: pieColors,
           hoverOffset: 4
         }]
       }
     });
 }
 function budgetChecker(){
+    let counter = 0; 
     Object.keys(props.budgets).forEach(key => {
-       
        if(props.budgets[key].name == 'Income') {
             income = props.budgets[key].amount; 
             budgetsMoreThanIncome = props.budgets[key].over; 
@@ -64,18 +59,25 @@ function budgetChecker(){
             total += props.budgets[key].amount; 
             budgetProgress += props.budgets[key].progress; 
             
+            if(props.budgets[key].over){
+                let newColor = 'rgb(255,0,0)';
+                colors.splice(counter, 1, newColor); 
+            }
             //Generate pie data values 
             pieData.push(props.budgets[key].amount);
             pieLabels.push(props.budgets[key].name);
        }
+       counter = counter + 1; 
+       console.log(counter); 
    });
    if(total > income) {
         overBudget.value = true; 
    }
-   console.log(budgetProgress, income); 
+   //console.log(budgetProgress, income); 
 }
 onBeforeMount(() => {
     budgetChecker(); 
+    console.log(colors); 
 }); 
 onMounted(() => {
     createPieChart(pieData, pieLabels); 
@@ -115,7 +117,7 @@ onMounted(() => {
     export default {
 
         mounted() {
-            console.log(this.$page.props)
+            //console.log(this.$page.props)
         }
     }
 </script>
