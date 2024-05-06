@@ -51,7 +51,7 @@ onMounted(()=>{
         </div>
         
         <div class="flex flex-row lg:w-1/4 w-1/5 justify-between">
-            <button class=" hover:text-blue-500 border border-blue-500 hover:underline py-2 px-4 rounded-2xl
+            <button class="hover:text-blue-500 border border-blue-500 hover:underline py-2 px-4 rounded-2xl
             hover:bg-white duration-150 ease-in-out"
             @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
 

@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); 
+            $table->string('name')->unique(); 
             $table->decimal('amount');
-            $table->decimal('progress');
-            $table->boolean('paid'); 
-            $table->boolean('over'); 
+            $table->decimal('progress'); 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 

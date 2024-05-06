@@ -33,8 +33,17 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-        
-    }
+        $validatedData =$request->validate([
+            'amount'=>'required|numeric|gt:0',
+            'progress'=>'required|numeric|gte:0',
+            'title'=>'required|string'
+        ]);
+        $budget = new Budget;
+
+        $budget->amount = $validatedData['amount']; 
+        $budget->progress = $validated['progress'];
+        $budget->title = $validated['title']; 
+     }
 
     /**
      * Display the specified resource.
@@ -100,6 +109,6 @@ class BudgetController extends Controller
         if(isset($budget)){
             $budget->delete(); 
         }
-        
+
     }
 }
