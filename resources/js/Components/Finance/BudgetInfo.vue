@@ -33,9 +33,9 @@ const { open, close } = useModal({
 
 function deleteBudget(id) {
     if (confirm('Are you sure you want to delete this budget and subbudgets?\nYou cannot recover it once deleted')) {
-        Inertia.delete(`/public/budgets/${id}`)
+        Inertia.delete(`public/budget/${id}`)
     }
-    
+
 }
 
 onMounted(()=>{

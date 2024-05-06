@@ -29,7 +29,7 @@ function update() {
   isSubmitting.value = true;  // Start submission
 
   // Use Inertia.put to make a PUT request
-  Inertia.put(`public/updatebudget/${props.id}`, budget, {
+  Inertia.put(`public/budget/${props.id}`, budget, {
     preserveScroll: true,
     onSuccess: () => {
       emit('confirm');

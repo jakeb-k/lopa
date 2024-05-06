@@ -95,9 +95,11 @@ class BudgetController extends Controller
      */
     public function destroy($id)
     {
-        $budget = Budget::find($id);
-        $budget->delete(); 
 
-        return redirect()->back(); 
+        $budget = Budget::find($id);
+        if(isset($budget)){
+            $budget->delete(); 
+        }
+        
     }
 }
