@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 
+
 class BudgetController extends Controller
 {
     /**
@@ -57,11 +58,13 @@ class BudgetController extends Controller
         $incomeTotal = Budget::where('name', 'Income')->sum('amount');
 
         if($budgetTotal > $incomeTotal) {
+            $msg = 'Your '.$budget->name.' budget was created!';
             $incomeBudget->over = true; 
+            session()->flash('success', $msg);
             $incomeBudget->save(); 
         } else {
-            $msg = 'Your '.$budget->name.' was created!';
-            session()->flash('success', 'Your budget'); 
+            $msg = 'Your '.$budget->name.' budget was created!';
+            session()->flash('success', $msg); 
             $incomeBudget->over = false; 
             $incomeBudget->save();
         }
@@ -131,6 +134,21 @@ class BudgetController extends Controller
         $budget = Budget::find($id);
         if(isset($budget)){
             $budget->delete(); 
+        }
+        //for making it for multiple people youd need to search by their id
+        //or destruction would ensue
+        $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+
+        $incomeBudget = Budget::where('name', 'Income')->first(); 
+
+        $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+
+        if($budgetTotal > $incomeTotal) {
+            $incomeBudget->over = true; 
+            $incomeBudget->save(); 
+        } else {
+            $incomeBudget->over = false; 
+            $incomeBudget->save();
         }
 
     }

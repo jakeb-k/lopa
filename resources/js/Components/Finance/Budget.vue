@@ -77,11 +77,10 @@ function budgetChecker(){
 }
 onBeforeMount(() => {
     budgetChecker(); 
-    console.log(colors); 
 }); 
 onMounted(() => {
     createPieChart(pieData, pieLabels); 
-    console.log(props.errors ?? ''); 
+    console.log(props); 
 }); 
 const { open, close } = useModal({
     component: ModalCreateBudget,
