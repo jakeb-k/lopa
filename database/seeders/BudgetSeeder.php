@@ -18,7 +18,6 @@ class BudgetSeeder extends Seeder
             'amount' =>1000,
             'progress' =>1000,
             'over'=> false,
-            'paid' => true,
             'user_id' => 1,
         ]);
         DB::table('budgets')->insert([
@@ -26,7 +25,6 @@ class BudgetSeeder extends Seeder
             'amount' =>300,
             'progress' =>300,
             'over'=> false,
-            'paid' => true,
             'user_id' => 1,
         ]);
         DB::table('budgets')->insert([
@@ -34,7 +32,6 @@ class BudgetSeeder extends Seeder
             'amount' =>100,
             'progress' =>0,
             'over'=> false,
-            'paid' => false,
             'user_id' => 1,
         ]);
         DB::table('budgets')->insert([
@@ -42,7 +39,6 @@ class BudgetSeeder extends Seeder
             'amount' =>200,
             'progress' =>120,
             'over'=> false,
-            'paid' => false,
             'user_id' => 1,
         ]);
         DB::table('budgets')->insert([
@@ -50,7 +46,6 @@ class BudgetSeeder extends Seeder
             'amount' =>100,
             'progress' =>25,
             'over'=> false,
-            'paid' => false,
             'user_id' => 1,
         ]);
         DB::table('budgets')->insert([
@@ -58,7 +53,6 @@ class BudgetSeeder extends Seeder
             'amount' =>300,
             'progress' =>50,
             'over'=> false,
-            'paid' => false,
             'user_id' => 1,
         ]);
 

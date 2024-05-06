@@ -70,7 +70,6 @@ function budgetChecker(){
             pieLabels.push(props.budgets[key].name);
        }
        counter = counter + 1; 
-       console.log(counter); 
    });
    if(total > income) {
         overBudget.value = true; 
@@ -82,6 +81,7 @@ onBeforeMount(() => {
 }); 
 onMounted(() => {
     createPieChart(pieData, pieLabels); 
+    console.log(props.errors ?? ''); 
 }); 
 const { open, close } = useModal({
     component: ModalCreateBudget,

@@ -6,6 +6,7 @@ use App\Models\Budget;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 class BudgetController extends Controller
@@ -41,8 +42,30 @@ class BudgetController extends Controller
         $budget = new Budget;
 
         $budget->amount = $validatedData['amount']; 
-        $budget->progress = $validated['progress'];
-        $budget->title = $validated['title']; 
+        $budget->progress = $validatedData['progress'];
+        $budget->name = $validatedData['title']; 
+        $budget->user_id = 1; 
+        $budget->over = false; 
+        $budget->save(); 
+
+        //for making it for multiple people youd need to search by their id
+        //or destruction would ensue
+        $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+
+        $incomeBudget = Budget::where('name', 'Income')->first(); 
+
+        $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+
+        if($budgetTotal > $incomeTotal) {
+            $incomeBudget->over = true; 
+            $incomeBudget->save(); 
+        } else {
+            $msg = 'Your '.$budget->name.' was created!';
+            session()->flash('success', 'Your budget'); 
+            $incomeBudget->over = false; 
+            $incomeBudget->save();
+        }
+
      }
 
     /**
