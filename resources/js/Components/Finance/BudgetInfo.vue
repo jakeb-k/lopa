@@ -55,7 +55,7 @@ onMounted(()=>{
             hover:bg-white duration-150 ease-in-out"
             @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
 
-            <button class="  hover:text-red-500 border border-red-500 hover:underline py-2 px-4 rounded-2xl
+            <button v-if="title != 'Income'" class="hover:text-red-500 border border-red-500 hover:underline py-2 px-4 rounded-2xl
             hover:bg-white duration-150 ease-in-out"
             @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
         </div>

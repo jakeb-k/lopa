@@ -7,6 +7,7 @@ import Totals from './Totals.vue';
 import ModalCreateBudget from './ModalCreateBudget.vue';
 
 import { Chart, registerables } from 'chart.js';
+import { useModal } from 'vue-final-modal';
 
 
 var pieData = []; 
@@ -82,14 +83,25 @@ onBeforeMount(() => {
 onMounted(() => {
     createPieChart(pieData, pieLabels); 
 }); 
-
+const { open, close } = useModal({
+    component: ModalCreateBudget,
+    attrs: {
+        onConfirm() {
+        close()
+        },
+    },
+}); 
 </script>
 <template>
 
     <div class="mt-10 pt-8 pb-12 px-8 mx-auto h-fit w-2/3 bg-gray-200 relative rounded-xl
     items-center flex flex-col lg:flex-row">
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
-            <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
+            <div class="flex flex-row justify-between">
+                <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
+                <button class="hover:text-green-400 border border-green-400 py-2 px-4 rounded-2xl
+            hover:bg-white duration-150 ease-in-out" @click="() => open()"><i class="fa-solid fa-plus"></i></button>
+            </div>
 
             <div class="text-green-600 text-lg w-full my-2" v-if="!budgetsMoreThanIncome">Your budgets match your income. <span class="font-bold">{{ total }} / {{ income }}</span></div>
             <div class="text-red-400 text-lg w-full my-2" v-if="budgetsMoreThanIncome">Your budgets exceed your income! <span class="font-bold">{{ total }} / {{ income }}</span></div>
