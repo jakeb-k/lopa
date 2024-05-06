@@ -4,6 +4,7 @@ import {onMounted, ref, computed, onBeforeMount} from 'vue';
 import BudgetInfo from '@/Components/Finance/BudgetInfo.vue'; 
 import ProgressBar from '@/Components/Finance/ProgressBar.vue'; 
 import Totals from './Totals.vue';
+import ModalCreateBudget from './ModalCreateBudget.vue';
 
 import { Chart, registerables } from 'chart.js';
 
@@ -73,7 +74,6 @@ function budgetChecker(){
    if(total > income) {
         overBudget.value = true; 
    }
-   //console.log(budgetProgress, income); 
 }
 onBeforeMount(() => {
     budgetChecker(); 
