@@ -93,8 +93,13 @@ class BudgetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Budget $budget)
+    public function destroy($id)
     {
-        //
+
+        $budget = Budget::find($id);
+        if(isset($budget)){
+            $budget->delete(); 
+        }
+        
     }
 }

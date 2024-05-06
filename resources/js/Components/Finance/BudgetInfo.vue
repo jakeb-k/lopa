@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { useModal } from 'vue-final-modal';
 import { router } from '@inertiajs/vue3';
+import { Inertia } from '@inertiajs/inertia';
 
 import ModalBudget from './ModalBudget.vue'
 
@@ -30,6 +31,12 @@ const { open, close } = useModal({
     },
 }); 
 
+function deleteBudget(id) {
+    if (confirm('Are you sure you want to delete this budget and subbudgets?\nYou cannot recover it once deleted')) {
+        Inertia.delete(`public/budget/${id}`)
+    }
+
+}
 
 onMounted(()=>{
 
@@ -38,11 +45,21 @@ onMounted(()=>{
 </script>
 <template>
    <div class="mt-4 flex justify-between items-center w-full">
-        <span class="basis-1/3">{{ props.budget.name }}: </span>
-        <span class="basis-1/4">${{props.budget.progress }}/{{props.budget.amount }}</span>
-        <button class="basis-1/6 hover:text-blue-500 border border-blue-500 hover:underline p-2 rounded-2xl
-        hover:bg-white duration-150 ease-in-out"
-        @click="() => open()">UPDATE</button>
+        <div class="flex flex-row text-left">
+            <span class="mr-6">{{ props.budget.name }}: </span>
+            <span class="basis-1/4">${{props.budget.progress }}/{{props.budget.amount }}</span>
+        </div>
+        
+        <div class="flex flex-row w-1/5 justify-between">
+            <button class=" hover:text-blue-500 border border-blue-500 hover:underline py-2 px-4 rounded-2xl
+            hover:bg-white duration-150 ease-in-out"
+            @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
+
+            <button class="  hover:text-red-500 border border-red-500 hover:underline py-2 px-4 rounded-2xl
+            hover:bg-white duration-150 ease-in-out"
+            @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        
     
     </div>
 
