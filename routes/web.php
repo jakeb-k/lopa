@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::resource('budget', BudgetController::class); 
 
+Route::post('/subbudget', [BudgetController::class, 'storeSub'])->name('subbudget.create'); 
 Route::put('/subbudget/{id}', [BudgetController::class, 'updateSub'])->name('subbudget.update'); 
 Route::delete('/subbudget/{id}', [BudgetController::class, 'destroySub'])->name('subbudget.delete'); 
 

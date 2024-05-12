@@ -43,6 +43,7 @@ const { open: openAdd, close: closeAdd } = useModal({
     component: ModalCreateBudget,
     attrs: {
         isSubBudget: true, 
+        budgetId: props.budget.id,
         onConfirm() {
         close()
         },

@@ -200,9 +200,10 @@ class BudgetController extends Controller
         $subBudget->amount = $validatedData['amount'];
         $subBudget->paid = $validatedData['isPaid']; 
         $subBudget->name = $validatedData['name']; 
-        // $budget->progress = $validatedData['progress'];
 
         $subBudget->save(); 
+        session()->flash('success', 'Your Sub Budget was successfully updated!'); 
+
 
         //for making it for multiple people youd need to search by their id
         //or destruction would ensue
@@ -222,4 +223,47 @@ class BudgetController extends Controller
         // }
 
     }
+    public function storeSub(Request $request)
+    {
+        $validatedData =$request->validate([
+            'amount'=>'required|numeric|gt:0',
+            'name'=>'required|string',
+            'budgetId'=>'required',
+            
+        ]);
+        
+
+        $subBudget = new Subbudget; 
+        $subBudget->user_id = 1;
+        $subBudget->name = $validatedData['name'];
+        $subBudget->amount = $validatedData['amount']; 
+        $subBudget->budget_id = $validatedData['budgetId'];
+        $subBudget->paid = $request->isPaid; 
+      
+        $subBudget->save();
+
+        session()->flash('success', 'Your Sub Budget was successfully added!'); 
+
+
+        // //for making it for multiple people youd need to search by their id
+        // //or destruction would ensue
+        // $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+
+        // $incomeBudget = Budget::where('name', 'Income')->first(); 
+
+        // $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+
+        // if($budgetTotal > $incomeTotal) {
+        //     $msg = 'Your '.$budget->name.' budget was created!';
+        //     $incomeBudget->over = true; 
+        //     session()->flash('success', $msg);
+        //     $incomeBudget->save(); 
+        // } else {
+        //     $msg = 'Your '.$budget->name.' budget was created!';
+        //     session()->flash('success', $msg); 
+        //     $incomeBudget->over = false; 
+        //     $incomeBudget->save();
+        // }
+
+     }
 }

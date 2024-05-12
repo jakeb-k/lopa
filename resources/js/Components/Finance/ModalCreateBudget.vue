@@ -6,16 +6,18 @@ import { VueFinalModal } from 'vue-final-modal'
 import LoadingWheel from '../LoadingWheel.vue';
 
 const props = defineProps<{
-  isSubBudget: boolean
+  isSubBudget: boolean,
+  budgetId: number,
 }>()
 
 const isSubBudget = ref(props.isSubBudget); 
 
 const budget = reactive({
-  title: '', 
+  name: '', 
   amount: 0,
   progress: 0,
   isPaid: false, 
+  budgetId: props.budgetId,
 });
 
 const emit = defineEmits<{
@@ -25,20 +27,37 @@ const emit = defineEmits<{
 var isSubmitting = ref(false);
 
 function createBudget() {
-  isSubmitting.value = true;  // Start submission
+  if(isSubBudget){
+    isSubmitting.value = true;  // Start submission
+    // Use Inertia.put to make a PUT request
+    Inertia.post(`public/subbudget`, budget, {
+      preserveScroll: true,
+      onSuccess: () => {
+        emit('confirm');
+        isSubmitting.value = false;  // End submission after reload completes
+      },
+      onError: () => {
+        console.error("Error during the update process");
+        isSubmitting.value = false;  // Reset on error as well
+      }
+    });
+  }
+  else {
+    isSubmitting.value = true;  // Start submission
 
-  // Use Inertia.put to make a PUT request
-  Inertia.post(`public/budget`, budget, {
-    preserveScroll: true,
-    onSuccess: () => {
-      emit('confirm');
-      isSubmitting.value = false;  // End submission after reload completes
-    },
-    onError: () => {
-      console.error("Error during the update process");
-      isSubmitting.value = false;  // Reset on error as well
-    }
-  });
+    // Use Inertia.put to make a PUT request
+    Inertia.post(`public/budget`, budget, {
+      preserveScroll: true,
+      onSuccess: () => {
+        emit('confirm');
+        isSubmitting.value = false;  // End submission after reload completes
+      },
+      onError: () => {
+        console.error("Error during the update process");
+        isSubmitting.value = false;  // Reset on error as well
+      }
+    });
+  }
 }
 </script>
 
@@ -52,9 +71,9 @@ function createBudget() {
     <h1 class="text-xl"  v-if="isSubBudget"> New Sub Budget </h1>
     <h1 class="text-xl"  v-if="!isSubBudget"> New Budget </h1>
 
-    <label for="title" v-if="!isSubBudget">Title for New Budget</label>
-    <label for="title" v-if="isSubBudget">Title for New Sub Budget</label>
-    <input id="title" v-model="budget.title"> 
+    <label for="name" v-if="!isSubBudget">Name for New Budget</label>
+    <label for="name" v-if="isSubBudget">Name for New Sub Budget</label>
+    <input id="name" v-model="budget.name"> 
 
     <label for="amount" v-if="!isSubBudget">Amount for New Budget</label>
     <label for="amount" v-if="isSubBudget">Amount for New Sub Budget</label>
