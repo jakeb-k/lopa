@@ -4,7 +4,7 @@ import { useModal } from 'vue-final-modal';
 import { router } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 
-import ModalBudget from './ModalBudget.vue'
+import ModalUpdateBudget from './ModalUpdateBudget.vue'
 
 
 const props = defineProps({
@@ -19,7 +19,7 @@ var id = ref(props.budget.id);
 
 
 const { open, close } = useModal({
-    component: ModalBudget,
+    component: ModalUpdateBudget,
     attrs: {
         title: title,
         amount: amount,
@@ -50,12 +50,12 @@ onMounted(()=>{
             <span class="basis-1/4">${{props.budget.progress }}/{{props.budget.amount }}</span>
         </div>
         
-        <div class="flex flex-row w-1/5 justify-between">
-            <button class=" hover:text-blue-500 border border-blue-500 hover:underline py-2 px-4 rounded-2xl
+        <div class="flex flex-row lg:w-1/4 w-1/5 justify-between">
+            <button class="hover:text-blue-500 border border-blue-500 hover:underline py-2 px-4 rounded-2xl
             hover:bg-white duration-150 ease-in-out"
             @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
 
-            <button class="  hover:text-red-500 border border-red-500 hover:underline py-2 px-4 rounded-2xl
+            <button v-if="title != 'Income'" class="hover:text-red-500 border border-red-500 hover:underline py-2 px-4 rounded-2xl
             hover:bg-white duration-150 ease-in-out"
             @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
         </div>

@@ -4,8 +4,10 @@ import {onMounted, ref, computed, onBeforeMount} from 'vue';
 import BudgetInfo from '@/Components/Finance/BudgetInfo.vue'; 
 import ProgressBar from '@/Components/Finance/ProgressBar.vue'; 
 import Totals from './Totals.vue';
+import ModalCreateBudget from './ModalCreateBudget.vue';
 
 import { Chart, registerables } from 'chart.js';
+import { useModal } from 'vue-final-modal';
 
 
 var pieData = []; 
@@ -68,28 +70,37 @@ function budgetChecker(){
             pieLabels.push(props.budgets[key].name);
        }
        counter = counter + 1; 
-       console.log(counter); 
    });
    if(total > income) {
         overBudget.value = true; 
    }
-   //console.log(budgetProgress, income); 
 }
 onBeforeMount(() => {
     budgetChecker(); 
-    console.log(colors); 
 }); 
 onMounted(() => {
     createPieChart(pieData, pieLabels); 
+    console.log(props); 
 }); 
-
+const { open, close } = useModal({
+    component: ModalCreateBudget,
+    attrs: {
+        onConfirm() {
+        close()
+        },
+    },
+}); 
 </script>
 <template>
 
     <div class="mt-10 pt-8 pb-12 px-8 mx-auto h-fit w-2/3 bg-gray-200 relative rounded-xl
     items-center flex flex-col lg:flex-row">
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
-            <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
+            <div class="flex flex-row justify-between">
+                <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
+                <button class="hover:text-green-400 border border-green-400 py-2 px-4 rounded-2xl
+            hover:bg-white duration-150 ease-in-out" @click="() => open()"><i class="fa-solid fa-plus"></i></button>
+            </div>
 
             <div class="text-green-600 text-lg w-full my-2" v-if="!budgetsMoreThanIncome">Your budgets match your income. <span class="font-bold">{{ total }} / {{ income }}</span></div>
             <div class="text-red-400 text-lg w-full my-2" v-if="budgetsMoreThanIncome">Your budgets exceed your income! <span class="font-bold">{{ total }} / {{ income }}</span></div>
@@ -103,9 +114,9 @@ onMounted(() => {
             </div>
         </div>
         
-        <div class="w-4/5 lg:w-1/2 h-full m-auto flex flex-col justify-between">
+        <div class="w-4/5 lg:w-1/2 pt-12 h-full m-auto flex flex-col lg:justify-between">
             <Totals :income=income :total=budgetProgress ></Totals>
-            <div class="pt-24">
+            <div class="lg:pt-16 lg:mt-0 mt-8">
                 <canvas id="myPieChart"></canvas>
             </div>
         </div>

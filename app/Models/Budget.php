@@ -9,9 +9,12 @@ class Budget extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','amount','progress','over', 'paid'];
+    protected $fillable = ['name','amount','progress','over'];
 
     function user(){
         return $this->belongsTo('App\Models\User'); 
+    }
+    function subbudgets(){
+        return $this->hasMany('App\Models\Subbudget'); 
     }
 }
