@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useModal } from 'vue-final-modal';
 import { router } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
@@ -18,6 +18,7 @@ const name = ref(props.budget.name);
 
 const amount = ref(props.budget.amount); 
 const id = ref(props.budget.id);
+const paid = ref(props.budget.paid); 
 
 var isSubmitting = ref(false);
 
@@ -49,9 +50,13 @@ function deleteBudget(id) {
         }
     });
     }
-
 }
-
+console.log(paid.value)
+const subBudgetTxt = computed(() =>
+    paid.value
+        ? 'text-green-500'
+        : 'text-red-600'
+);
 onMounted(()=>{
 
 }); 
@@ -59,19 +64,20 @@ onMounted(()=>{
 </script>
 <template>
     <div className="flex flex-row w-ful border-b py-2 border-gray-400 l my-4 items-center justify-between">
-        <div class="w-8/12 flex flex-row justify-between">
-        <span >{{name }}: </span>
-        <span className=" font-bold"> ${{ amount }}</span>
-    </div>
-    <div class="flex flex-row justify-between w-1/6">
-        <button class="hover:text-blue-500 hover:underline rounded-2xl
-            hover:bg-white duration-150 ease-in-out"
-            @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
+        <div class="w-8/12 flex flex-row justify-between"
+        :class=subBudgetTxt>
+            <span >{{name }}: </span>
+            <span className="font-bold"> ${{ amount }}</span>
+        </div>
+        <div class="flex flex-row justify-between w-1/6">
+            <button class="hover:text-blue-500 hover:underline rounded-2xl
+                hover:bg-white duration-150 ease-in-out"
+                @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
 
-            <button v-if="name != 'Income'" class="hover:text-red-500 hover:underline rounded-2xl
-            hover:bg-white duration-150 ease-in-out"
-            @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
-    </div>
+                <button v-if="name != 'Income'" class="hover:text-red-500 hover:underline rounded-2xl
+                hover:bg-white duration-150 ease-in-out"
+                @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
+        </div>
     </div>  
     <LoadingWheel :isSubmitting=isSubmitting></LoadingWheel>
 
