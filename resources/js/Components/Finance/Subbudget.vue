@@ -9,6 +9,7 @@ import ModalUpdateBudget from './ModalUpdateBudget.vue'
 
 const props = defineProps({
     budget: Object, 
+    flash: Object
 })
 
 var title = ref(props.budget.name); 
@@ -23,8 +24,6 @@ const { open, close } = useModal({
     component: ModalUpdateBudget,
     attrs: {
         title: title,
-        amount: amount,
-        progress: progress,
         id: id,
         onConfirm() {
         close()
