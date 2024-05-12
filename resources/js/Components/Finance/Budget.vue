@@ -109,7 +109,7 @@ const { open, close } = useModal({
             <div class="text-green-600 text-lg w-full my-2" v-if="$page.props.flash.success">{{ $page.props.flash.success }}</div>
 
             <div v-for="(budget, index) in props.budgets">
-                <BudgetInfo :budget="budget"></BudgetInfo>
+                <BudgetInfo :budget="budget" :color="colors[index]"></BudgetInfo>
                 <ProgressBar :progress="budget.progress" :total="budget.amount" :color="colors[index]"></ProgressBar>
             </div>
         </div>

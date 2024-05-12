@@ -10,16 +10,18 @@ import Subbudget from './Subbudget.vue';
 
 const props = defineProps({
     budget: Object, 
-    flash: Object
+    flash: Object,
+    color: String, 
 })
 
-var title = ref(props.budget.name); 
+const title = ref(props.budget.name); 
+const id = ref(props.budget.id);
+const color = ref(props.color); 
+
 var amount = ref(props.budget.amount);
 var progress = ref(props.budget.progress);
-var id = ref(props.budget.id);
+
 const showSubbudgets = ref(false); 
-
-
 const subbudgets = props.budget.subbudgets; 
 
 
@@ -73,10 +75,15 @@ function toggleSubbudgets(){
         
     
     </div>
-
-    <div v-if="showSubbudgets" v-for="budget in subbudgets" >
-        <Subbudget :budget=budget></Subbudget>
+    <transition name="slide-fade"> 
+    <div v-if="showSubbudgets" className="bg-white rounded-xl border-2 my-4 px-4 transition-all ease-in-out"
+                :style="{borderColor: color }">
+        <div  v-for="budget in subbudgets" className="transition ease-in-out" >
+            <Subbudget :budget=budget></Subbudget>
+        </div>
     </div>
+    </transition>
+   
         
 
 </template>

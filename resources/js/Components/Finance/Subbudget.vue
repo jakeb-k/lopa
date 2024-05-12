@@ -9,7 +9,8 @@ import ModalUpdateBudget from './ModalUpdateBudget.vue'
 
 const props = defineProps({
     budget: Object, 
-    flash: Object
+    flash: Object,
+    color: String,
 })
 
 const title = ref(props.budget.name); 
@@ -43,9 +44,21 @@ onMounted(()=>{
 
 </script>
 <template>
-   <div class="mt-4">
+    <div className="flex flex-row w-ful border-b py-2 border-gray-400 l my-4 items-center justify-between">
+        <div class="w-8/12 flex flex-row justify-between">
         <span >{{title }}: </span>
-        <span className=""> {{ amount }}</span>
+        <span className=" font-bold"> ${{ amount }}</span>
     </div>
+    <div class="flex flex-row justify-between w-1/6">
+        <button class="hover:text-blue-500 hover:underline rounded-2xl
+            hover:bg-white duration-150 ease-in-out"
+            @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
+
+            <button v-if="title != 'Income'" class="hover:text-red-500 hover:underline rounded-2xl
+            hover:bg-white duration-150 ease-in-out"
+            @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
+    </div>
+    </div>
+   
 
 </template>
