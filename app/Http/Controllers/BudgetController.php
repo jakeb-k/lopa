@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Budget;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Subbudget; 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $budgets = Budget::all(); 
+        $budgets = Budget::with('subbudgets')->get();
 
         return $budgets; 
     }
