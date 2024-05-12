@@ -153,4 +153,33 @@ class BudgetController extends Controller
         }
 
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroySub($id)
+    {
+
+        $subBudget = SubBudget::find($id);
+        if(isset($subBudget)){
+            $subBudget->delete(); 
+        }
+
+        //for making it for multiple people youd need to search by their id
+        //or destruction would ensue
+        // $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+
+        // $incomeBudget = Budget::where('name', 'Income')->first(); 
+
+        // $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+
+        // if($budgetTotal > $incomeTotal) {
+        //     $incomeBudget->over = true; 
+        //     $incomeBudget->save(); 
+        // } else {
+        //     $incomeBudget->over = false; 
+        //     $incomeBudget->save();
+        // }
+
+    }
 }

@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::resource('budget', BudgetController::class); 
 
+Route::delete('/subbudget/{id}', [BudgetController::class, 'destroySub'])->name('subbudget.delete'); 
 
 
 Route::get('/dashboard', function () {
