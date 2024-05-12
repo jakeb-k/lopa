@@ -9,7 +9,6 @@ import ModalUpdateBudget from './ModalUpdateBudget.vue'
 
 const props = defineProps({
     budget: Object, 
-    flash: Object
 })
 
 var title = ref(props.budget.name); 
@@ -49,7 +48,6 @@ onMounted(()=>{
    <div class="mt-4 flex justify-between items-center w-full">
         <div class="flex flex-row text-left">
             <span class="mr-6">{{ props.budget.name }}: </span>
-            <span class="basis-1/4">${{props.budget.progress }}/{{props.budget.amount }}</span>
         </div>
         
         <div class="flex flex-row lg:w-1/4 w-1/5 justify-between">

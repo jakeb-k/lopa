@@ -80,7 +80,6 @@ onBeforeMount(() => {
 }); 
 onMounted(() => {
     createPieChart(pieData, pieLabels); 
-    console.log(props); 
 }); 
 const { open, close } = useModal({
     component: ModalCreateBudget,
