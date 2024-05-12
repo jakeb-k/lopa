@@ -14,4 +14,7 @@ class Budget extends Model
     function user(){
         return $this->belongsTo('App\Models\User'); 
     }
+    function subbudgets(){
+        return $this->hasMany('App\Models\Subbudget'); 
+    }
 }
