@@ -5,6 +5,7 @@ import { router } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 
 import ModalUpdateBudget from './ModalUpdateBudget.vue';
+import ModalCreateBudget from './ModalCreateBudget.vue';
 import Subbudget from './Subbudget.vue'; 
 
 
@@ -21,7 +22,7 @@ const color = ref(props.color);
 var amount = ref(props.budget.amount);
 var progress = ref(props.budget.progress);
 
-const showSubbudgets = ref(false); 
+const showSubBudgets = ref(false); 
 const subbudgets = props.budget.subbudgets; 
 
 
@@ -31,22 +32,30 @@ const { open, close } = useModal({
         name: name,
         amount: amount,
         progress: progress,
-        isSubbudget: false, 
+        isSubBudget: false, 
         id: id,
         onConfirm() {
         close()
         },
     },
 }); 
-
+const { open: openAdd, close: closeAdd } = useModal({
+    component: ModalCreateBudget,
+    attrs: {
+        isSubBudget: true, 
+        onConfirm() {
+        close()
+        },
+    },
+}); 
 function deleteBudget(id) {
     if (confirm('Are you sure you want to delete this budget and subbudgets?\nYou cannot recover it once deleted')) {
         Inertia.delete(`public/budget/${id}`)
     }
 }
 
-function toggleSubbudgets(){
-    showSubbudgets.value = !showSubbudgets.value; 
+function toggleSubBudgets(){
+    showSubBudgets.value = !showSubBudgets.value; 
 }
 
 
@@ -69,7 +78,7 @@ function toggleSubbudgets(){
 
             <button  v-if="name != 'Income'" class="hover:text-lime-500 border border-lime-500 hover:underline py-2 px-4 rounded-2xl
             hover:bg-white duration-150 ease-in-out"
-            @click="toggleSubbudgets()"><i class="fa-solid fa-caret-down"></i></button>
+            @click="toggleSubBudgets()"><i class="fa-solid fa-caret-down"></i></button>
 
         </div>
 
@@ -77,8 +86,10 @@ function toggleSubbudgets(){
     
     </div>
     <transition name="slide-fade"> 
-    <div v-if="showSubbudgets" className="bg-white rounded-xl border-2 my-4 px-4 transition-all ease-in-out"
+    <div v-if="showSubBudgets" className="bg-white rounded-xl border-2 my-4 px-4 transition-all ease-in-out"
                 :style="{borderColor: color }">
+                <button class="hover:text-green-400 py-2 pr-4 rounded-2xl
+            hover:bg-white duration-150 ease-in-out" @click="() => openAdd()">Sub Budgets <i class="fa-solid fa-plus"></i></button>
         <div  v-for="budget in subbudgets" className="transition ease-in-out" >
             <Subbudget :budget=budget></Subbudget>
         </div>

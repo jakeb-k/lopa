@@ -10,12 +10,12 @@ const props = defineProps<{
   amount: number,
   progress: number,
   id: number,
-  isSubbudget: boolean
+  isSubBudget: boolean
 }>()
 var amount = ref(props.amount);
 var progress = ref(props.progress);
 var name = ref(props.name); 
-const isSubBudget = ref(props.isSubbudget); 
+const isSubBudget = ref(props.isSubBudget); 
 
 const budget = reactive({
   name: name, 
@@ -67,7 +67,7 @@ function update() {
 <template>
   <VueFinalModal
     class="flex justify-center items-center"
-    content-class="flex flex-col w-1/4 mx-4 p-4 bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-lg space-y-2"
+    content-class="flex flex-col lg:w-1/4 w-1/2 mx-4 p-4 bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-lg space-y-2"
   >
   <LoadingWheel :isSubmitting=isSubmitting></LoadingWheel>
 
@@ -84,9 +84,6 @@ function update() {
     <label v-if="!isSubBudget" for="progress">Progress for {{ name }}</label>
     <input v-if="!isSubBudget" id="progress" type="number" v-model="budget.progress"> 
 
-    
-    <label v-if="!isSubBudget" for="progress">Progress for {{ name }}</label>
-    <input v-if="!isSubBudget" id="progress" type="number" v-model="budget.progress"> 
     <div v-if="isSubBudget" class="mt-8">
       <label>
       <input type="checkbox" v-model="budget.isPaid" />

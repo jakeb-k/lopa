@@ -51,7 +51,6 @@ function deleteBudget(id) {
     });
     }
 }
-console.log(paid.value)
 const subBudgetTxt = computed(() =>
     paid.value
         ? 'text-green-500'
