@@ -21,6 +21,7 @@ const budget = reactive({
   name: name, 
   amount: amount,
   progress: progress,
+  isPaid: false,
 });
 
 const emit = defineEmits<{
@@ -31,9 +32,23 @@ var isSubmitting = ref(false);
 
 function update() {
   isSubmitting.value = true;  // Start submission
-
-  // Use Inertia.put to make a PUT request
-  Inertia.put(`public/budget/${props.id}`, budget, {
+  if(isSubBudget){
+      // Use Inertia.put to make a PUT request
+    Inertia.put(`public/subbudget/${props.id}`, budget, {
+      preserveScroll: true,
+      onSuccess: () => {
+        emit('confirm');
+        isSubmitting.value = false;  // End submission after reload completes
+      },
+      onError: () => {
+        console.error("Error during the update process");
+        isSubmitting.value = false;  // Reset on error as well
+      }
+    });
+  } 
+  else {
+    // Use Inertia.put to make a PUT request
+    Inertia.put(`public/budget/${props.id}`, budget, {
     preserveScroll: true,
     onSuccess: () => {
       emit('confirm');
@@ -44,6 +59,8 @@ function update() {
       isSubmitting.value = false;  // Reset on error as well
     }
   });
+  }
+ 
 }
 </script>
 
@@ -66,7 +83,16 @@ function update() {
 
     <label v-if="!isSubBudget" for="progress">Progress for {{ name }}</label>
     <input v-if="!isSubBudget" id="progress" type="number" v-model="budget.progress"> 
-  
+
+    
+    <label v-if="!isSubBudget" for="progress">Progress for {{ name }}</label>
+    <input v-if="!isSubBudget" id="progress" type="number" v-model="budget.progress"> 
+    <div v-if="isSubBudget" class="mt-8">
+      <label>
+      <input type="checkbox" v-model="budget.isPaid" />
+      Is Paid?
+      </label>
+    </div>
     
     <button class="mt-1 ml-auto px-2 border rounded-lg" @click="update()">
       UPDATE

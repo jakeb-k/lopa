@@ -194,11 +194,12 @@ class BudgetController extends Controller
         $validatedData = $request->validate([
             'amount' => 'required|numeric|gte:0',
             'name' => 'required',
-            'paid' => 'required'
+            'isPaid' => 'required'
         ]);
 
         $subBudget->amount = $validatedData['amount'];
-        $subBudget->name = $validateedData['name']; 
+        $subBudget->paid = $validatedData['isPaid']; 
+        $subBudget->name = $validatedData['name']; 
         // $budget->progress = $validatedData['progress'];
 
         $subBudget->save(); 
