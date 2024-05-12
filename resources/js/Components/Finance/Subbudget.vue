@@ -4,7 +4,8 @@ import { useModal } from 'vue-final-modal';
 import { router } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 
-import ModalUpdateBudget from './ModalUpdateBudget.vue'
+import ModalUpdateBudget from './ModalUpdateBudget.vue';
+import LoadingWheel from '../LoadingWheel.vue';
 
 
 const props = defineProps({
@@ -18,7 +19,7 @@ const title = ref(props.budget.name);
 const amount = ref(props.budget.amount); 
 const id = ref(props.budget.id);
 
-
+var isSubmitting = ref(false);
 
 const { open, close } = useModal({
     component: ModalUpdateBudget,
@@ -32,8 +33,19 @@ const { open, close } = useModal({
 }); 
 
 function deleteBudget(id) {
-    if (confirm('Are you sure you want to delete this budget and subbudgets?\nYou cannot recover it once deleted')) {
-        Inertia.delete(`public/budget/${id}`)
+    if (confirm('Are you sure you want to delete this subbudget?\nYou cannot recover it once deleted')) {
+        isSubmitting.value = true;
+        Inertia.delete(`public/subbudget/${id}`,{
+        preserveScroll: true,
+        onSuccess: () => {
+        emit('confirm');
+        isSubmitting.value = false;  // End submission after reload completes
+        },
+        onError: () => {
+        console.error("Error during the update process");
+        isSubmitting.value = false;  // Reset on error as well
+        }
+    });
     }
 
 }
@@ -58,7 +70,7 @@ onMounted(()=>{
             hover:bg-white duration-150 ease-in-out"
             @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
     </div>
-    </div>
-   
+    </div>  
+    <LoadingWheel :isSubmitting=isSubmitting></LoadingWheel>
 
 </template>
