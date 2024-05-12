@@ -14,7 +14,7 @@ const props = defineProps({
     color: String,
 })
 
-const title = ref(props.budget.name); 
+const name = ref(props.budget.name); 
 
 const amount = ref(props.budget.amount); 
 const id = ref(props.budget.id);
@@ -24,7 +24,9 @@ var isSubmitting = ref(false);
 const { open, close } = useModal({
     component: ModalUpdateBudget,
     attrs: {
-        title: title,
+        name: name,
+        amount: amount,
+        isSubbudget: true, 
         id: id,
         onConfirm() {
         close()
@@ -58,7 +60,7 @@ onMounted(()=>{
 <template>
     <div className="flex flex-row w-ful border-b py-2 border-gray-400 l my-4 items-center justify-between">
         <div class="w-8/12 flex flex-row justify-between">
-        <span >{{title }}: </span>
+        <span >{{name }}: </span>
         <span className=" font-bold"> ${{ amount }}</span>
     </div>
     <div class="flex flex-row justify-between w-1/6">
@@ -66,7 +68,7 @@ onMounted(()=>{
             hover:bg-white duration-150 ease-in-out"
             @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
 
-            <button v-if="title != 'Income'" class="hover:text-red-500 hover:underline rounded-2xl
+            <button v-if="name != 'Income'" class="hover:text-red-500 hover:underline rounded-2xl
             hover:bg-white duration-150 ease-in-out"
             @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
     </div>

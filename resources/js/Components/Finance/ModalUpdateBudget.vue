@@ -10,10 +10,12 @@ const props = defineProps<{
   amount: number,
   progress: number,
   id: number,
+  isSubbudget: boolean
 }>()
 var amount = ref(props.amount);
 var progress = ref(props.progress);
 var name = ref(props.name); 
+const isSubBudget = ref(props.isSubbudget); 
 
 const budget = reactive({
   name: name, 
@@ -62,8 +64,9 @@ function update() {
     <label for="amount">Amount for {{ name }}</label>
     <input id="amount" type="number" v-model="budget.amount"> 
 
-    <label for="progress">Progress for {{ name }}</label>
-    <input id="progress" type="number" v-model="budget.progress"> 
+    <label v-if="!isSubBudget" for="progress">Progress for {{ name }}</label>
+    <input v-if="!isSubBudget" id="progress" type="number" v-model="budget.progress"> 
+  
     
     <button class="mt-1 ml-auto px-2 border rounded-lg" @click="update()">
       UPDATE

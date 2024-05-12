@@ -31,6 +31,7 @@ const { open, close } = useModal({
         name: name,
         amount: amount,
         progress: progress,
+        isSubbudget: false, 
         id: id,
         onConfirm() {
         close()
