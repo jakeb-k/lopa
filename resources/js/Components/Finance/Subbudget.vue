@@ -12,12 +12,11 @@ const props = defineProps({
     flash: Object
 })
 
-var title = ref(props.budget.name); 
-var amount = ref(props.budget.amount);
-var progress = ref(props.budget.progress);
-var id = ref(props.budget.id);
+const title = ref(props.budget.name); 
 
-const subbudgets = props.budget.subbudgets; 
+const amount = ref(props.budget.amount); 
+const id = ref(props.budget.id);
+
 
 
 const { open, close } = useModal({
@@ -44,22 +43,9 @@ onMounted(()=>{
 
 </script>
 <template>
-   <div class="mt-4 flex justify-between items-center w-full">
-        <div class="flex flex-row text-left">
-            <span class="mr-6">{{ props.budget.name }}: </span>
-        </div>
-        
-        <div class="flex flex-row lg:w-1/4 w-1/5 justify-between">
-            <button class="hover:text-blue-500 border border-blue-500 hover:underline py-2 px-4 rounded-2xl
-            hover:bg-white duration-150 ease-in-out"
-            @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
-
-            <button v-if="title != 'Income'" class="hover:text-red-500 border border-red-500 hover:underline py-2 px-4 rounded-2xl
-            hover:bg-white duration-150 ease-in-out"
-            @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
-        </div>
-        
-    
+   <div class="mt-4">
+        <span >{{title }}: </span>
+        <span className=""> {{ amount }}</span>
     </div>
 
 </template>

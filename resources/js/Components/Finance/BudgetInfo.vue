@@ -70,11 +70,13 @@ function toggleSubbudgets(){
 
         </div>
 
-        <div v-if="showSubbudgets" v-for="(budget, index) in subbudgets" >
-            <Subbudget :budget=budget></Subbudget>
-        </div>
         
     
     </div>
+
+    <div v-if="showSubbudgets" v-for="budget in subbudgets" >
+        <Subbudget :budget=budget></Subbudget>
+    </div>
+        
 
 </template>

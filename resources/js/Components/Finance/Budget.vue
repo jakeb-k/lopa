@@ -2,6 +2,7 @@
 import {onMounted, ref, computed, onBeforeMount} from 'vue'; 
 
 import BudgetInfo from '@/Components/Finance/BudgetInfo.vue'; 
+import Subbudget from './Subbudget.vue';
 import ProgressBar from '@/Components/Finance/ProgressBar.vue'; 
 import Totals from './Totals.vue';
 import ModalCreateBudget from './ModalCreateBudget.vue';
@@ -123,11 +124,3 @@ const { open, close } = useModal({
     </div>
     
 </template>
-<script>
-    export default {
-
-        mounted() {
-            //console.log(this.$page.props)
-        }
-    }
-</script>
