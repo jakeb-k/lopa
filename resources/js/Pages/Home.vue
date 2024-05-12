@@ -21,7 +21,7 @@ const props = defineProps({
     <Head title="Home" />
 
     <MasterLayout>
-        <div class="h-full w-full pt-1 bg-gray-700">
+        <div class="h-full w-full pt-1 bg-gray-700 pb-10">
             <Budget :budgets="budgets"></Budget>
         </div>
          

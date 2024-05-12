@@ -94,7 +94,7 @@ const { open, close } = useModal({
 <template>
 
     <div class="mt-10 pt-8 pb-12 px-8 mx-auto h-fit w-2/3 bg-gray-200 relative rounded-xl
-    items-center flex flex-col lg:flex-row">
+    items-center flex flex-col lg:flex-row mb-20 ">
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
             <div class="flex flex-row justify-between">
                 <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
@@ -114,7 +114,7 @@ const { open, close } = useModal({
             </div>
         </div>
         
-        <div class="w-4/5 lg:w-1/2 pt-12 h-full m-auto flex flex-col lg:justify-between">
+        <div class="w-4/5 lg:w-1/2 h-full m-auto flex flex-col lg:justify-between">
             <Totals :income=income :total=budgetProgress ></Totals>
             <div class="lg:pt-16 lg:mt-0 mt-8">
                 <canvas id="myPieChart"></canvas>
