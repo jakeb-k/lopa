@@ -14,7 +14,7 @@ const props = defineProps({
     color: String, 
 })
 
-const title = ref(props.budget.name); 
+const name = ref(props.budget.name); 
 const id = ref(props.budget.id);
 const color = ref(props.color); 
 
@@ -28,7 +28,7 @@ const subbudgets = props.budget.subbudgets;
 const { open, close } = useModal({
     component: ModalUpdateBudget,
     attrs: {
-        title: title,
+        name: name,
         amount: amount,
         progress: progress,
         id: id,
@@ -62,11 +62,11 @@ function toggleSubbudgets(){
             hover:bg-white duration-150 ease-in-out"
             @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
 
-            <button v-if="title != 'Income'" class="hover:text-red-500 border border-red-500 hover:underline py-2 px-4 rounded-2xl
+            <button v-if="name != 'Income'" class="hover:text-red-500 border border-red-500 hover:underline py-2 px-4 rounded-2xl
             hover:bg-white duration-150 ease-in-out"
             @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
 
-            <button  v-if="title != 'Income'" class="hover:text-lime-500 border border-lime-500 hover:underline py-2 px-4 rounded-2xl
+            <button  v-if="name != 'Income'" class="hover:text-lime-500 border border-lime-500 hover:underline py-2 px-4 rounded-2xl
             hover:bg-white duration-150 ease-in-out"
             @click="toggleSubbudgets()"><i class="fa-solid fa-caret-down"></i></button>
 

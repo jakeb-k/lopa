@@ -182,4 +182,40 @@ class BudgetController extends Controller
         // }
 
     }
+     /**
+     * Update the specified resource in storage.
+     */
+    public function updateSub(Request $request, $id)
+    {
+        $subBudget = SubBudget::find($id); 
+        
+        $validatedData = $request->validate([
+            'amount' => 'required|numeric|gte:0',
+            'name' => 'required'
+        ]);
+
+        $subBudget->amount = $validatedData['amount'];
+        $subBudget->name = $validateedData['name']; 
+        // $budget->progress = $validatedData['progress'];
+
+        $subBudget->save(); 
+
+        //for making it for multiple people youd need to search by their id
+        //or destruction would ensue
+        // $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+
+        // $incomeBudget = Budget::where('name', 'Income')->first(); 
+
+        // $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+
+        // if($budgetTotal > $incomeTotal) {
+        //     $incomeBudget->over = true; 
+        //     $incomeBudget->save(); 
+        // } else {
+        //     session()->flash('success', 'Your budget was successfully updated!'); 
+        //     $incomeBudget->over = false; 
+        //     $incomeBudget->save();
+        // }
+
+    }
 }

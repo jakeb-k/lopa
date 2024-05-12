@@ -6,15 +6,17 @@ import { VueFinalModal } from 'vue-final-modal'
 import LoadingWheel from '../LoadingWheel.vue';
 
 const props = defineProps<{
-  title?: string,
+  name?: string,
   amount: number,
   progress: number,
   id: number,
 }>()
 var amount = ref(props.amount);
 var progress = ref(props.progress);
+var name = ref(props.name); 
 
 const budget = reactive({
+  name: name, 
   amount: amount,
   progress: progress,
 });
@@ -51,12 +53,16 @@ function update() {
   <LoadingWheel :isSubmitting=isSubmitting></LoadingWheel>
 
     <h1 class="text-xl">
-      {{ title }}
+      {{ name }}
     </h1>
-    <label for="amount">Amount for {{ title }}</label>
+    
+    <label for="name">Edit Name: {{ name }}</label>
+    <input id="name" type="text" v-model="budget.name"> 
+
+    <label for="amount">Amount for {{ name }}</label>
     <input id="amount" type="number" v-model="budget.amount"> 
 
-    <label for="progress">Progress for {{ title }}</label>
+    <label for="progress">Progress for {{ name }}</label>
     <input id="progress" type="number" v-model="budget.progress"> 
     
     <button class="mt-1 ml-auto px-2 border rounded-lg" @click="update()">
