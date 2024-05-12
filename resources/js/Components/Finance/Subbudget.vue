@@ -27,7 +27,7 @@ const { open, close } = useModal({
     attrs: {
         name: name,
         amount: amount,
-        isSubbudget: true, 
+        isSubBudget: true, 
         id: id,
         onConfirm() {
         close()
