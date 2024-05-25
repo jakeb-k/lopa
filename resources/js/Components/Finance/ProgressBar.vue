@@ -1,12 +1,3 @@
-<template>
-    <div class="w-full h-4 bg-gray-400 rounded-full overflow-hidden mt-4">
-      <div
-        class="h-full rounded-full duration-700"
-        :style="{ width: progressBarWidth, backgroundColor: color }"
-      ></div>
-    </div>
-  </template>
-  
   <script setup>
   import { computed, ref } from 'vue';
   
@@ -40,3 +31,13 @@ setInterval(() => {
   }
 },60);
 </script>
+
+
+<template>
+    <div class="w-full h-4 bg-gray-400 rounded-full overflow-hidden mt-4">
+      <div
+        class="h-full rounded-full duration-700"
+        :style="{ width: progressBarWidth, backgroundColor: color }"
+      ></div>
+    </div>
+  </template>

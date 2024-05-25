@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Budget;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Subbudget; 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $budgets = Budget::all(); 
+        $budgets = Budget::with('subbudgets')->get();
 
         return $budgets; 
     }
@@ -98,10 +99,12 @@ class BudgetController extends Controller
         
         $validatedData = $request->validate([
             'amount' => 'required|numeric|gte:0',
-            'progress' => 'required|numeric|gte:0'
+            'progress' => 'required|numeric|gte:0',
+            'name'=>'required'
         ]);
 
         $budget->amount = $validatedData['amount'];
+        $budget->name = $validatedData['name']; 
         $budget->progress = $validatedData['progress'];
 
         $budget->save(); 
@@ -152,4 +155,115 @@ class BudgetController extends Controller
         }
 
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroySub($id)
+    {
+
+        $subBudget = SubBudget::find($id);
+        if(isset($subBudget)){
+            $subBudget->delete(); 
+        }
+
+        //for making it for multiple people youd need to search by their id
+        //or destruction would ensue
+        // $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+
+        // $incomeBudget = Budget::where('name', 'Income')->first(); 
+
+        // $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+
+        // if($budgetTotal > $incomeTotal) {
+        //     $incomeBudget->over = true; 
+        //     $incomeBudget->save(); 
+        // } else {
+        //     $incomeBudget->over = false; 
+        //     $incomeBudget->save();
+        // }
+
+    }
+     /**
+     * Update the specified resource in storage.
+     */
+    public function updateSub(Request $request, $id)
+    {
+        $subBudget = SubBudget::find($id); 
+        
+        $validatedData = $request->validate([
+            'amount' => 'required|numeric|gte:0',
+            'name' => 'required',
+            'isPaid' => 'required'
+        ]);
+
+        $subBudget->amount = $validatedData['amount'];
+        $subBudget->paid = $validatedData['isPaid']; 
+        $subBudget->name = $validatedData['name']; 
+
+        $subBudget->save(); 
+        session()->flash('success', 'Your Sub Budget was successfully updated!'); 
+
+
+        //for making it for multiple people youd need to search by their id
+        //or destruction would ensue
+        // $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+
+        // $incomeBudget = Budget::where('name', 'Income')->first(); 
+
+        // $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+
+        // if($budgetTotal > $incomeTotal) {
+        //     $incomeBudget->over = true; 
+        //     $incomeBudget->save(); 
+        // } else {
+        //     session()->flash('success', 'Your budget was successfully updated!'); 
+        //     $incomeBudget->over = false; 
+        //     $incomeBudget->save();
+        // }
+
+    }
+    public function storeSub(Request $request)
+    {
+        $validatedData =$request->validate([
+            'amount'=>'required|numeric|gt:0',
+            'name'=>'required|string',
+            'budgetId'=>'required',
+            
+        ]);
+        
+
+        $subBudget = new Subbudget; 
+        $subBudget->user_id = 1;
+        $subBudget->name = $validatedData['name'];
+        $subBudget->amount = $validatedData['amount']; 
+        $subBudget->budget_id = $validatedData['budgetId'];
+        $subBudget->paid = $request->isPaid; 
+      
+        $subBudget->save();
+
+        session()->flash('success', 'Your Sub Budget was successfully added!'); 
+
+
+        // //for making it for multiple people youd need to search by their id
+        // //or destruction would ensue
+        // $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+
+        // $incomeBudget = Budget::where('name', 'Income')->first(); 
+
+        // $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+
+        // if($budgetTotal > $incomeTotal) {
+        //     $msg = 'Your '.$budget->name.' budget was created!';
+        //     $incomeBudget->over = true; 
+        //     session()->flash('success', $msg);
+        //     $incomeBudget->save(); 
+        // } else {
+        //     $msg = 'Your '.$budget->name.' budget was created!';
+        //     session()->flash('success', $msg); 
+        //     $incomeBudget->over = false; 
+        //     $incomeBudget->save();
+        // }
+
+     }
 }

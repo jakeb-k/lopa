@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subbudgets', function (Blueprint $table) {
+        Schema::create('sub_budgets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->decimal('amount');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('budget_id');
-            $table->foreign('budget_id')->references('id')->on('budgets');
+            $table->foreign('budget_id')->references('id')->on('budgets')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subbudgets');
+        Schema::dropIfExists('sub_budgets');
     }
 };

@@ -17,7 +17,10 @@ class SubbudgetFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'budget_id'=> $this->faker->numberBetween(2,6),
+            'name'=> $this->faker->name(), 
+            'amount'=> $this->faker->randomFloat(2, 10, 250),
+            'user_id'=> 1
         ];
     }
 }
