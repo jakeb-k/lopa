@@ -85,6 +85,7 @@ onMounted(() => {
 const { open, close } = useModal({
     component: ModalCreateBudget,
     attrs: {
+        isSubBudget: false, 
         onConfirm() {
         close()
         },
@@ -94,11 +95,11 @@ const { open, close } = useModal({
 <template>
 
     <div class="mt-10 pt-8 pb-12 px-8 mx-auto h-fit w-2/3 bg-gray-200 relative rounded-xl
-    items-center flex flex-col lg:flex-row mb-20 ">
+     flex flex-col lg:flex-row mb-20 ">
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
             <div class="flex flex-row justify-between">
                 <h1 class="text-3xl underline text-gray-800 ">Budget Overview</h1>
-                <button class="hover:text-green-400 border border-green-400 py-2 px-4 rounded-2xl
+                <button class="hover:text-green-400 border border-green-400 w-[50px] h-[40px] py-2 px-4 rounded-2xl
             hover:bg-white duration-150 ease-in-out" @click="() => open()"><i class="fa-solid fa-plus"></i></button>
             </div>
 

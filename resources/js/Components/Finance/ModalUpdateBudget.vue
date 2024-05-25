@@ -34,7 +34,7 @@ function update() {
   isSubmitting.value = true;  // Start submission
   if(isSubBudget){
       // Use Inertia.put to make a PUT request
-    Inertia.put(`public/subbudget/${props.id}`, budget, {
+    Inertia.put(route('subbudget.update'), budget, {
       preserveScroll: true,
       onSuccess: () => {
         emit('confirm');
@@ -48,7 +48,7 @@ function update() {
   } 
   else {
     // Use Inertia.put to make a PUT request
-    Inertia.put(`public/budget/${props.id}`, budget, {
+    Inertia.put(route('budget.update', props.id), budget, {
     preserveScroll: true,
     onSuccess: () => {
       emit('confirm');
@@ -67,7 +67,7 @@ function update() {
 <template>
   <VueFinalModal
     class="flex justify-center items-center"
-    content-class="flex flex-col lg:w-1/4 w-1/2 mx-4 p-4 bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-lg space-y-2"
+    content-class="flex flex-col lg:w-1/4 w-1/2 mx-4 p-4 bg-white border rounded-lg space-y-2"
   >
   <LoadingWheel :isSubmitting=isSubmitting></LoadingWheel>
 

@@ -38,14 +38,14 @@ const { open, close } = useModal({
 function deleteBudget(id) {
     if (confirm('Are you sure you want to delete this subbudget?\nYou cannot recover it once deleted')) {
         isSubmitting.value = true;
-        Inertia.delete(`public/subbudget/${id}`,{
+        Inertia.delete(route('subbudget.delete'),{
         preserveScroll: true,
         onSuccess: () => {
         emit('confirm');
         isSubmitting.value = false;  // End submission after reload completes
         },
         onError: () => {
-        console.error("Error during the update process");
+        console.error("Error during the delete process");
         isSubmitting.value = false;  // Reset on error as well
         }
     });

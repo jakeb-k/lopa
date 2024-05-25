@@ -29,8 +29,8 @@ var isSubmitting = ref(false);
 function createBudget() {
   if(isSubBudget){
     isSubmitting.value = true;  // Start submission
-    // Use Inertia.put to make a PUT request
-    Inertia.post(`public/subbudget`, budget, {
+    // Use Inertia.post to make a POST request
+    Inertia.post(route('subbudget.create'), budget, {
       preserveScroll: true,
       onSuccess: () => {
         emit('confirm');
@@ -45,8 +45,8 @@ function createBudget() {
   else {
     isSubmitting.value = true;  // Start submission
 
-    // Use Inertia.put to make a PUT request
-    Inertia.post(`public/budget`, budget, {
+    // Use Inertia.post to make a post request
+    Inertia.post(route('budget.store'), budget, {
       preserveScroll: true,
       onSuccess: () => {
         emit('confirm');
@@ -64,7 +64,7 @@ function createBudget() {
 <template>
   <VueFinalModal
     class="flex justify-center items-center"
-    content-class="flex flex-col lg:w-1/4 w-1/2 mx-4 p-4 bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-lg space-y-2"
+    content-class="flex flex-col lg:w-1/4 w-1/2 mx-4 p-4 bg-white border rounded-lg space-y-2"
   >
   <LoadingWheel :isSubmitting=isSubmitting></LoadingWheel>
 

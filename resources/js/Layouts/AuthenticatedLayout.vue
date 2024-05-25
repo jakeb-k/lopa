@@ -6,6 +6,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import { ModalsContainer } from 'vue-final-modal'; 
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -145,7 +146,8 @@ const showingNavigationDropdown = ref(false);
 
             <!-- Page Content -->
             <main>
-                <slot />
+                <slot />    
+            <ModalsContainer />
             </main>
         </div>
     </div>
