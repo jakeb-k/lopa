@@ -92,9 +92,14 @@ const submit = () => {
                 
             </div>
         </form>
-                <a :href="route('auth.redirect', 'google')">
+                <a class="mr-4" :href="route('auth.redirect', 'google')">
                     <PrimaryButton>
                         <i class="fa-brands fa-google"></i>
+                    </PrimaryButton>
+                </a>
+                <a :href="route('auth.redirect', 'microsoft')">
+                    <PrimaryButton>
+                        <i class="fa-brands fa-microsoft"></i>
                     </PrimaryButton>
                 </a>
     </GuestLayout>
