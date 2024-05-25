@@ -19,8 +19,10 @@ class BudgetController extends Controller
     public function index()
     {
         $budgets = Budget::with('subbudgets')->get();
-
-        return $budgets; 
+        
+        return Inertia::render('Dashboard', [
+            'budgets' => $budgets
+        ]);
     }
 
     /**
