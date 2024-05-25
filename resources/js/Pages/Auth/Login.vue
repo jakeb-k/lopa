@@ -88,7 +88,19 @@ const submit = () => {
                 <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
                 </PrimaryButton>
+
+                
             </div>
         </form>
+                <a class="mr-4" :href="route('auth.redirect', 'google')">
+                    <PrimaryButton>
+                        <i class="fa-brands fa-google"></i>
+                    </PrimaryButton>
+                </a>
+                <a :href="route('auth.redirect', 'microsoft')">
+                    <PrimaryButton>
+                        <i class="fa-brands fa-microsoft"></i>
+                    </PrimaryButton>
+                </a>
     </GuestLayout>
 </template>

@@ -6,10 +6,13 @@ import { ModalsContainer } from 'vue-final-modal';
 
 <template>
     <div class="w-full bg-gray-100">
-        <div class="w-1/2 flex flex-row justify-between items-center mx-auto">
+        <div class="flex flex-row justify-around items-center mx-auto">
             <p>LOPA: Life Optimisation Personal Assistant</p>
-            <Link class="text-2xl hover:underline hover:text-blue-500" :href="route('login')">Log In</Link>
-            <Link class="text-2xl hover:underline hover:text-blue-500" :href="route('register')">Register</Link>
+            <div class="w-1/4 flex flex-row justify-around">
+                <Link class="text-xl hover:underline hover:text-blue-500" :href="route('login')">Log In</Link>
+                <Link class="text-xl hover:underline hover:text-blue-500" :href="route('register')">Register</Link>
+            </div>
+            
 
         </div>
     </div>
