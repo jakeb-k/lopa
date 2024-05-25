@@ -18,8 +18,8 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $budgets = Budget::with('subbudgets')->get();
-        
+        $budgets = Budget::with('subbudgets')->where('user_id', Auth::user()->id)->get();
+    
         return Inertia::render('Dashboard', [
             'budgets' => $budgets
         ]);
