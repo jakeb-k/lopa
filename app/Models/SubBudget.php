@@ -11,6 +11,16 @@ class SubBudget extends Model
     
     protected $fillable = ['budget_id','name','amount','paid']; 
 
+    protected $casts = [
+        'amount' => 'float',
+        'progress' => 'float',
+        'over' => 'boolean',
+        'user_id' => 'integer',
+        'budget_id' => 'integer',
+
+    ];
+
+
     function budget(){
         return $this->belongsTo('App\Model\Budget'); 
     }
