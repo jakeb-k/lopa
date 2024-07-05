@@ -91,7 +91,10 @@ function toggleSubBudgets() {
                 class="hover:text-lime-500 border border-lime-500 hover:underline py-2 px-4 rounded-2xl hover:bg-white duration-150 ease-in-out"
                 @click="toggleSubBudgets()"
             >
-                <i class="fa-solid fa-caret-down"></i>
+                <i
+                    class="fa-solid"
+                    :class="showSubBudgets ? 'fa-caret-up' : 'fa-caret-down'"
+                ></i>
             </button>
         </div>
     </div>
