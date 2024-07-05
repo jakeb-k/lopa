@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name'); 
             $table->decimal('amount');
             $table->decimal('progress');
-            $table->boolean('over'); 
+            $table->boolean('over')->default(false); 
+            $table->string('color'); 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 

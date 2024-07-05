@@ -19,6 +19,7 @@ class BudgetSeeder extends Seeder
             'progress' =>1000,
             'over'=> false,
             'user_id' => 1,
+            'color'=> 'rgb(255,215,0)'
         ]);
         DB::table('budgets')->insert([
             'name' => 'Housing',
@@ -26,6 +27,7 @@ class BudgetSeeder extends Seeder
             'progress' =>300,
             'over'=> false,
             'user_id' => 1,
+            'color'=> 'rgb(255, 99, 132)'
         ]);
         DB::table('budgets')->insert([
             'name' => 'Utilities',
@@ -33,6 +35,7 @@ class BudgetSeeder extends Seeder
             'progress' =>0,
             'over'=> false,
             'user_id' => 1,
+            'color'=> 'rgb(54, 162, 235)'
         ]);
         DB::table('budgets')->insert([
             'name' => 'Food',
@@ -40,6 +43,7 @@ class BudgetSeeder extends Seeder
             'progress' =>120,
             'over'=> false,
             'user_id' => 1,
+            'color'=> 'rgb(255, 120, 0)'
         ]);
         DB::table('budgets')->insert([
             'name' => 'Transport',
@@ -47,6 +51,7 @@ class BudgetSeeder extends Seeder
             'progress' =>25,
             'over'=> false,
             'user_id' => 1,
+            'color'=> 'rgb(153, 102, 255)'
         ]);
         DB::table('budgets')->insert([
             'name' => 'Savings',
@@ -54,6 +59,7 @@ class BudgetSeeder extends Seeder
             'progress' =>50,
             'over'=> false,
             'user_id' => 1,
+            'color'=> 'rgb(75, 192, 192)'
         ]);
 
     }

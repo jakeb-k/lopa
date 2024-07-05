@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, computed, onBeforeMount } from "vue";
+import { onMounted, ref, computed, onBeforeMount, watch } from "vue";
 
 import BudgetInfo from "@/Components/Finance/BudgetInfo.vue";
 import Subbudget from "./Subbudget.vue";
@@ -9,11 +9,6 @@ import ModalCreateBudget from "./ModalCreateBudget.vue";
 
 import { Chart, registerables } from "chart.js";
 import { useModal } from "vue-final-modal";
-import { usePage } from "@inertiajs/inertia-vue3";
-
-// const page = usePage();
-
-// const success = computed(() => page.props.flash.success);
 
 var pieData = [];
 var pieLabels = [];

@@ -9,7 +9,7 @@ class Budget extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','amount','progress','over'];
+    protected $guarded = []; 
     
     protected $casts = [
         'amount' => 'float',

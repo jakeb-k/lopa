@@ -9,7 +9,7 @@ class SubBudget extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['budget_id','name','amount','paid']; 
+    protected $guarded = []; 
 
     protected $casts = [
         'amount' => 'float',
