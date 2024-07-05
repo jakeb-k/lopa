@@ -16,8 +16,8 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        $budgets = Budget::with('subbudgets')->get();
-        
+        $budgets = Budget::with('subbudgets')->where('user_id', Auth::user()->id)->get();
+    
         return Inertia::render('Dashboard', [
             'budgets' => $budgets
         ]);
@@ -42,6 +42,7 @@ class BudgetController extends Controller
             'amount'=>'required|numeric|gt:0',
             'progress'=>'required|numeric|gte:0',
             'name'=>'required|string'
+            'name'=>'required|string'
         ]);
         $budget = new Budget;
 
@@ -51,14 +52,14 @@ class BudgetController extends Controller
         $budget->user_id = 1; 
         $budget->over = false; 
         $budget->save(); 
-
+        dd($budget); 
         //for making it for multiple people youd need to search by their id
         //or destruction would ensue
-        $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+        $budgetTotal = Budget::where('name', '!=', 'Income')->where('user_id', $user->id)->sum('amount');
 
-        $incomeBudget = Budget::where('name', 'Income')->first(); 
+        $incomeBudget = Budget::where('name', 'Income')->where('user_id', $user->id)->first(); 
 
-        $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+        $incomeTotal = Budget::where('name', 'Income')->where('user_id', $user->id)->sum('amount');
 
         if($budgetTotal > $incomeTotal) {
             $msg = 'Your '.$budget->name.' budget was created!';
@@ -108,19 +109,23 @@ class BudgetController extends Controller
             'name'=>'required'
         ]);
 
-        $budget->amount = $validatedData['amount'];
-        $budget->name = $validatedData['name']; 
-        $budget->progress = $validatedData['progress'];
-
-        $budget->save(); 
+        if($budget) {
+            $budget->update([
+                'amount'=> $validatedData['amount'],
+                'progress'=> $validatedData['progress'],
+                'name' => $validatedData['name'],
+                'over'=> false,
+                'user_id'=> Auth::user()->id, 
+            ]);
+        }
 
         //for making it for multiple people youd need to search by their id
         //or destruction would ensue
-        $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+        $budgetTotal = Budget::where('name', '!=', 'Income')->where('user_id', $user->id)->sum('amount');
 
-        $incomeBudget = Budget::where('name', 'Income')->first(); 
+        $incomeBudget = Budget::where('name', 'Income')->where('user_id', $user->id)->first(); 
 
-        $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+        $incomeTotal = Budget::where('name', 'Income')->where('user_id', $user->id)->sum('amount');
 
         if($budgetTotal > $incomeTotal) {
             $incomeBudget->over = true; 
@@ -145,11 +150,11 @@ class BudgetController extends Controller
         }
         //for making it for multiple people youd need to search by their id
         //or destruction would ensue
-        $budgetTotal = Budget::where('name', '!=', 'Income')->sum('amount');
+        $budgetTotal = Budget::where('name', '!=', 'Income')->where('user_id', $user->id)->sum('amount');
 
-        $incomeBudget = Budget::where('name', 'Income')->first(); 
+        $incomeBudget = Budget::where('name', 'Income')->where('user_id', $user->id)->first(); 
 
-        $incomeTotal = Budget::where('name', 'Income')->sum('amount');
+        $incomeTotal = Budget::where('name', 'Income')->where('user_id', $user->id)->sum('amount');
 
         if($budgetTotal > $incomeTotal) {
             $incomeBudget->over = true; 

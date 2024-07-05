@@ -94,6 +94,7 @@ onMounted(() => {
 const { open, close } = useModal({
     component: ModalCreateBudget,
     attrs: {
+        isSubBudget: false,
         onConfirm() {
             close();
         },
