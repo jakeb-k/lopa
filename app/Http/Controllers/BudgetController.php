@@ -6,11 +6,12 @@ use App\Models\Budget;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Subbudget; 
-
+use Illuminate\Support\Facades\Auth; 
 
 
 class BudgetController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -36,13 +37,12 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request); 
+        $user = Auth::user(); 
         try {
         $validatedData =$request->validate([
             'amount'=>'required|numeric|gt:0',
             'progress'=>'required|numeric|gte:0',
-            'name'=>'required|string'
-            'name'=>'required|string'
+            'name'=>'required|string',
         ]);
         $budget = new Budget;
 
@@ -52,7 +52,6 @@ class BudgetController extends Controller
         $budget->user_id = 1; 
         $budget->over = false; 
         $budget->save(); 
-        dd($budget); 
         //for making it for multiple people youd need to search by their id
         //or destruction would ensue
         $budgetTotal = Budget::where('name', '!=', 'Income')->where('user_id', $user->id)->sum('amount');
@@ -101,6 +100,7 @@ class BudgetController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = Auth::user(); 
         $budget = Budget::find($id); 
         
         $validatedData = $request->validate([
@@ -143,7 +143,7 @@ class BudgetController extends Controller
      */
     public function destroy($id)
     {
-
+        $user = Auth::user(); 
         $budget = Budget::find($id);
         if(isset($budget)){
             $budget->delete(); 

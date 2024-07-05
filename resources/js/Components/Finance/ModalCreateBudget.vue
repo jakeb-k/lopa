@@ -10,7 +10,7 @@ const props = defineProps<{
     budgetId: number;
 }>();
 
-const isSubBudget = ref(props.isSubBudget) ?? false;
+const isSubBudget = ref(props.isSubBudget) ?? ref(false);
 
 const budget = reactive({
     name: "",
@@ -27,7 +27,7 @@ const emit = defineEmits<{
 var isSubmitting = ref(false);
 
 function createBudget() {
-    if (isSubBudget) {
+    if (isSubBudget.value) {
         isSubmitting.value = true; // Start submission
         // Use Inertia.put to make a PUT request
         Inertia.post(route("subbudget.create"), budget, {
@@ -46,7 +46,7 @@ function createBudget() {
         });
     } else {
         isSubmitting.value = true; // Start submission
-
+        console.log(budget);
         // Use Inertia.put to make a PUT request
         Inertia.post(`budget`, budget, {
             preserveScroll: true,
