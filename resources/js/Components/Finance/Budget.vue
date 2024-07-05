@@ -130,7 +130,7 @@ const { open, close } = useModal({
                 {{ $page.props.flash.message }}
             </div>
             <div
-                class="text-green-600 text-lg w-full my-2"
+                class="md:absolute md:top-48 lg:top-0 lg:relative text-green-600 text-lg w-full my-2"
                 v-if="$page.props.flash.success"
             >
                 {{ $page.props.flash.success }}
