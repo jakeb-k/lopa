@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Budget; 
 
