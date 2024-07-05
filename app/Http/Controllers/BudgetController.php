@@ -36,16 +36,18 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request); 
+        try {
         $validatedData =$request->validate([
             'amount'=>'required|numeric|gt:0',
             'progress'=>'required|numeric|gte:0',
-            'title'=>'required|string'
+            'name'=>'required|string'
         ]);
         $budget = new Budget;
 
         $budget->amount = $validatedData['amount']; 
         $budget->progress = $validatedData['progress'];
-        $budget->name = $validatedData['title']; 
+        $budget->name = $validatedData['name']; 
         $budget->user_id = 1; 
         $budget->over = false; 
         $budget->save(); 
@@ -69,6 +71,9 @@ class BudgetController extends Controller
             $incomeBudget->over = false; 
             $incomeBudget->save();
         }
+        } catch(\Exception $e){
+            return $this->index()->with('error', $e); 
+        }   
 
      }
 
@@ -165,6 +170,8 @@ class BudgetController extends Controller
         $subBudget = SubBudget::find($id);
         if(isset($subBudget)){
             $subBudget->delete(); 
+            session()->flash('success', 'Your Sub Budget was successfully deleted!'); 
+
         }
 
         //for making it for multiple people youd need to search by their id

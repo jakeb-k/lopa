@@ -1,24 +1,23 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue';
-import { useModal } from 'vue-final-modal';
-import { router } from '@inertiajs/vue3';
-import { Inertia } from '@inertiajs/inertia';
+import { onMounted, ref, computed } from "vue";
+import { useModal } from "vue-final-modal";
+import { router } from "@inertiajs/vue3";
+import { Inertia } from "@inertiajs/inertia";
 
-import ModalUpdateBudget from './ModalUpdateBudget.vue';
-import LoadingWheel from '../LoadingWheel.vue';
-
+import ModalUpdateBudget from "./ModalUpdateBudget.vue";
+import LoadingWheel from "../LoadingWheel.vue";
 
 const props = defineProps({
-    budget: Object, 
+    budget: Object,
     flash: Object,
     color: String,
-})
+});
 
-const name = ref(props.budget.name); 
+const name = ref(props.budget.name);
 
-const amount = ref(props.budget.amount); 
+const amount = ref(props.budget.amount);
 const id = ref(props.budget.id);
-const paid = ref(props.budget.paid); 
+const paid = ref(props.budget.paid);
 
 var isSubmitting = ref(false);
 
@@ -27,57 +26,63 @@ const { open, close } = useModal({
     attrs: {
         name: name,
         amount: amount,
-        isSubBudget: true, 
+        isSubBudget: true,
         id: id,
         onConfirm() {
-        close()
+            close();
         },
     },
-}); 
+});
 
 function deleteBudget(id) {
-    if (confirm('Are you sure you want to delete this subbudget?\nYou cannot recover it once deleted')) {
+    if (
+        confirm(
+            "Are you sure you want to delete this subbudget?\nYou cannot recover it once deleted"
+        )
+    ) {
         isSubmitting.value = true;
-        Inertia.delete(`public/subbudget/${id}`,{
-        preserveScroll: true,
-        onSuccess: () => {
-        emit('confirm');
-        isSubmitting.value = false;  // End submission after reload completes
-        },
-        onError: () => {
-        console.error("Error during the update process");
-        isSubmitting.value = false;  // Reset on error as well
-        }
-    });
+        Inertia.delete(`subbudget/${id}`, {
+            preserveScroll: true,
+            onSuccess: () => {
+                emit("confirm");
+                isSubmitting.value = false; // End submission after reload completes
+            },
+            onError: () => {
+                console.error("Error during the update process");
+                isSubmitting.value = false; // Reset on error as well
+            },
+        });
     }
 }
 const subBudgetTxt = computed(() =>
-    paid.value
-        ? 'text-green-500'
-        : 'text-red-600'
+    paid.value ? "text-green-500" : "text-red-600"
 );
-onMounted(()=>{
-
-}); 
-
+onMounted(() => {});
 </script>
 <template>
-    <div className="flex flex-row w-ful border-b py-2 border-gray-400 l my-4 items-center justify-between">
-        <div class="w-8/12 flex flex-row justify-between"
-        :class=subBudgetTxt>
-            <span >{{name }}: </span>
+    <div
+        className="flex flex-row w-ful border-b py-2 border-gray-400 l my-4 items-center justify-between"
+    >
+        <div class="w-8/12 flex flex-row justify-between" :class="subBudgetTxt">
+            <span>{{ name }}: </span>
             <span className="font-bold"> ${{ amount }}</span>
         </div>
         <div class="flex flex-row justify-between w-1/6">
-            <button class="hover:text-blue-500 hover:underline rounded-2xl
-                hover:bg-white duration-150 ease-in-out"
-                @click="() => open()"><i class="fa-regular fa-pen-to-square"></i></button>
+            <button
+                class="hover:text-blue-500 hover:underline rounded-2xl hover:bg-white duration-150 ease-in-out"
+                @click="() => open()"
+            >
+                <i class="fa-regular fa-pen-to-square"></i>
+            </button>
 
-                <button v-if="name != 'Income'" class="hover:text-red-500 hover:underline rounded-2xl
-                hover:bg-white duration-150 ease-in-out"
-                @click="deleteBudget(id)"><i class="fa-solid fa-trash"></i></button>
+            <button
+                v-if="name != 'Income'"
+                class="hover:text-red-500 hover:underline rounded-2xl hover:bg-white duration-150 ease-in-out"
+                @click="deleteBudget(id)"
+            >
+                <i class="fa-solid fa-trash"></i>
+            </button>
         </div>
-    </div>  
-    <LoadingWheel :isSubmitting=isSubmitting></LoadingWheel>
-
+    </div>
+    <LoadingWheel :isSubmitting="isSubmitting"></LoadingWheel>
 </template>

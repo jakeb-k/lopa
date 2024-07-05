@@ -10,7 +10,7 @@ const props = defineProps<{
     budgetId: number;
 }>();
 
-const isSubBudget = ref(props.isSubBudget);
+const isSubBudget = ref(props.isSubBudget) ?? false;
 
 const budget = reactive({
     name: "",
@@ -30,14 +30,17 @@ function createBudget() {
     if (isSubBudget) {
         isSubmitting.value = true; // Start submission
         // Use Inertia.put to make a PUT request
-        Inertia.post(`public/subbudget`, budget, {
+        Inertia.post(route("subbudget.create"), budget, {
             preserveScroll: true,
             onSuccess: () => {
                 emit("confirm");
                 isSubmitting.value = false; // End submission after reload completes
             },
-            onError: () => {
-                console.error("Error during the update process");
+            onError: (error) => {
+                console.error(
+                    "Error during the subbudget create process: ",
+                    error
+                );
                 isSubmitting.value = false; // Reset on error as well
             },
         });
@@ -45,14 +48,17 @@ function createBudget() {
         isSubmitting.value = true; // Start submission
 
         // Use Inertia.put to make a PUT request
-        Inertia.post(`public/budget`, budget, {
+        Inertia.post(`budget`, budget, {
             preserveScroll: true,
             onSuccess: () => {
                 emit("confirm");
                 isSubmitting.value = false; // End submission after reload completes
             },
-            onError: () => {
-                console.error("Error during the update process");
+            onError: (error) => {
+                console.error(
+                    "Error during the budget create process: ",
+                    error
+                );
                 isSubmitting.value = false; // Reset on error as well
             },
         });
