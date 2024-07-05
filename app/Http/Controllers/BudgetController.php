@@ -31,7 +31,17 @@ class BudgetController extends Controller
     {
         //
     }
-
+    /**
+     * Creates a random rbg to be used in the graphs
+     * is stored in db for persistance
+     * @return String
+     */
+    function getRandomRGBColor() {
+        $r = rand(0, 255);
+        $g = rand(0, 255);
+        $b = rand(0, 255);
+        return "rgb($r, $g, $b)";
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -50,7 +60,7 @@ class BudgetController extends Controller
         $budget->progress = $validatedData['progress'];
         $budget->name = $validatedData['name']; 
         $budget->user_id = 1; 
-        $budget->over = false; 
+        $budget->color = $this->getRandomRGBColor(); 
         $budget->save(); 
         //for making it for multiple people youd need to search by their id
         //or destruction would ensue

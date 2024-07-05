@@ -12,15 +12,8 @@ import { useModal } from "vue-final-modal";
 
 var pieData = [];
 var pieLabels = [];
-var colors = [
-    "gold",
-    "rgb(255, 99, 132)",
-    "rgb(54, 162, 235)",
-    "rgb(255, 120, 0)",
-    "rgb(153, 102, 255)",
-    "rgb(75, 192, 192)",
-];
-var pieColors = colors.slice(1);
+var colors = [];
+var pieColors = [];
 var total = 0;
 var budgetProgress = 0;
 var overBudget = ref(false);
@@ -72,8 +65,10 @@ function budgetChecker() {
             }
             //Generate pie data values
             pieData.push(props.budgets[key].amount);
+            pieColors.push(props.budgets[key].color);
             pieLabels.push(props.budgets[key].name);
         }
+        colors.push(props.budgets[key].color);
         counter = counter + 1;
     });
     if (total > income) {
