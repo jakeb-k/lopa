@@ -59,7 +59,7 @@ class BudgetController extends Controller
         $budget->amount = $validatedData['amount']; 
         $budget->progress = $validatedData['progress'];
         $budget->name = $validatedData['name']; 
-        $budget->user_id = 1; 
+        $budget->user_id = $user->id; 
         $budget->color = $this->getRandomRGBColor(); 
         $budget->save(); 
         //for making it for multiple people youd need to search by their id

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Budget; 
 
 class RegisteredUserController extends Controller
 {
@@ -46,6 +47,7 @@ class RegisteredUserController extends Controller
             'user_id'=> $user->id,
             'amount'=> 1000,
             'progress'=> 0,
+            'color'=> 'rgb(255,215,0)',
             'over'=> false
         ]);
 

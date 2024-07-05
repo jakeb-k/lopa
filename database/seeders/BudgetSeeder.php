@@ -61,6 +61,14 @@ class BudgetSeeder extends Seeder
             'user_id' => 1,
             'color'=> 'rgb(75, 192, 192)'
         ]);
+        DB::table('budgets')->insert([
+            'name' => 'Income',
+            'amount' =>1000,
+            'progress' =>1000,
+            'over'=> false,
+            'user_id' => 2,
+            'color'=> 'rgb(255,215,0)'
+        ]);
 
     }
 }

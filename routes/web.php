@@ -51,14 +51,14 @@ Route::get('/auth/{driver}/callback', function (Request $request) {
     ]);
 
     //If new user then will need to create a budget, so check for budgets on the user
-    $budgets = $user->budgets();
-
-    if(!isset($budgets)){
-       Budget::Create([
+    $budgets = $user->budgets()->get();
+    if($budgets->isEmpty()){
+      Budget::create([
             'name' => 'Income',
             'user_id'=> $user->id,
             'amount'=> 1000,
             'progress'=> 0,
+            'color'=> 'rgb(255,215,0)',
             'over'=> false
         ]);
     }

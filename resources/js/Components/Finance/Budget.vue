@@ -79,7 +79,9 @@ onBeforeMount(() => {
     budgetChecker();
 });
 onMounted(() => {
-    createPieChart(pieData, pieLabels);
+    if (props.budgets.length > 1) {
+        createPieChart(pieData, pieLabels);
+    }
 });
 const { open, close } = useModal({
     component: ModalCreateBudget,
@@ -93,7 +95,7 @@ const { open, close } = useModal({
 </script>
 <template>
     <div
-        class="mt-10 pt-8 pb-12 px-8 mx-auto h-fit w-2/3 bg-gray-200 relative rounded-xl items-center flex flex-col lg:flex-row mb-20"
+        class="mt-10 pt-8 pb-12 px-8 mx-auto h-fit w-2/3 bg-gray-200 relative rounded-xl flex flex-col lg:flex-row mb-20"
     >
         <div class="flex flex-col w-full mx-auto lg:w-1/2 lg:mr-20">
             <div class="flex flex-row justify-between">
@@ -110,7 +112,7 @@ const { open, close } = useModal({
 
             <div
                 class="text-green-600 text-lg w-full lg:my-2"
-                v-if="!budgetsMoreThanIncome"
+                v-if="!budgetsMoreThanIncome && props.budgets.length > 1"
             >
                 Your budgets match your income.
                 <span class="font-bold">{{ total }} / {{ income }}</span>
@@ -153,13 +155,26 @@ const { open, close } = useModal({
         <div
             class="w-4/5 lg:w-1/2 h-full m-auto flex flex-col lg:justify-between"
         >
-            <div
-                class="lg:relative lg:top-0 lg:left-0 lg:-mt-8 md:absolute md:top-20 md:left-8 md:my-8"
-            >
-                <Totals :income="income" :total="budgetProgress"></Totals>
+            <div v-if="props.budgets.length > 1">
+                <div
+                    class="lg:relative lg:top-0 lg:left-0 md:absolute md:top-20 md:left-8 md:my-8"
+                >
+                    <Totals :income="income" :total="budgetProgress"></Totals>
+                </div>
+                <div class="lg:mt-0 mt-8">
+                    <canvas id="myPieChart"></canvas>
+                </div>
             </div>
-            <div class="lg:pt-16 lg:mt-0 mt-8">
-                <canvas id="myPieChart"></canvas>
+            <div
+                v-else
+                class="lg:relative lg:top-8 lg:left-0 lg:-mt-8 md:absolute md:top-12 md:right-24 md:my-8"
+            >
+                <i
+                    class="fa-solid fa-arrow-pointer mb-6 lg:ml-0 md:ml-[100%] lg:scale-x-100 md:-scale-x-100"
+                ></i>
+                <h1 class="text-xl text-gray-800">
+                    Create a budget to get started!
+                </h1>
             </div>
         </div>
     </div>
