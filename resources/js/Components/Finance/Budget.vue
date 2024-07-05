@@ -119,7 +119,7 @@ const { open, close } = useModal({
             </div>
 
             <div
-                class="text-green-600 text-lg w-full my-2"
+                class="text-green-600 text-lg w-full lg:my-2"
                 v-if="!budgetsMoreThanIncome"
             >
                 Your budgets match your income.
@@ -145,24 +145,29 @@ const { open, close } = useModal({
             >
                 {{ $page.props.flash.success }}
             </div>
-
-            <div v-for="(budget, index) in props.budgets">
-                <BudgetInfo
-                    :budget="budget"
-                    :color="colors[index]"
-                ></BudgetInfo>
-                <ProgressBar
-                    :progress="budget.progress"
-                    :total="budget.amount"
-                    :color="colors[index]"
-                ></ProgressBar>
+            <div class="lg:mt-0 md:mt-24">
+                <div v-for="(budget, index) in props.budgets">
+                    <BudgetInfo
+                        :budget="budget"
+                        :color="colors[index]"
+                    ></BudgetInfo>
+                    <ProgressBar
+                        :progress="budget.progress"
+                        :total="budget.amount"
+                        :color="colors[index]"
+                    ></ProgressBar>
+                </div>
             </div>
         </div>
 
         <div
             class="w-4/5 lg:w-1/2 h-full m-auto flex flex-col lg:justify-between"
         >
-            <Totals :income="income" :total="budgetProgress"></Totals>
+            <div
+                class="lg:relative lg:top-0 lg:left-0 lg:-mt-8 md:absolute md:top-20 md:left-8 md:my-8"
+            >
+                <Totals :income="income" :total="budgetProgress"></Totals>
+            </div>
             <div class="lg:pt-16 lg:mt-0 mt-8">
                 <canvas id="myPieChart"></canvas>
             </div>
