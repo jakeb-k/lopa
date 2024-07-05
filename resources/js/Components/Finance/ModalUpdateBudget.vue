@@ -10,12 +10,12 @@ const props = defineProps<{
     amount: number;
     progress: number;
     id: number;
-    isSubBudget: boolean;
+    isSubBudget: boolean | null;
 }>();
 var amount = ref(props.amount);
 var progress = ref(props.progress);
 var name = ref(props.name);
-const isSubBudget = ref(props.isSubBudget);
+const isSubBudget = ref(props.isSubBudget) ?? ref(false);
 
 const budget = reactive({
     name: name,
@@ -32,9 +32,9 @@ var isSubmitting = ref(false);
 
 function update() {
     isSubmitting.value = true; // Start submission
-    if (isSubBudget) {
+    if (isSubBudget.value) {
         // Use Inertia.put to make a PUT request
-        Inertia.put(`public/subbudget/${props.id}`, budget, {
+        Inertia.put(`subbudget/${props.id}`, budget, {
             preserveScroll: true,
             onSuccess: () => {
                 emit("confirm");
@@ -47,7 +47,7 @@ function update() {
         });
     } else {
         // Use Inertia.put to make a PUT request
-        Inertia.put(`public/budget/${props.id}`, budget, {
+        Inertia.put(`budget/${props.id}`, budget, {
             preserveScroll: true,
             onSuccess: () => {
                 emit("confirm");
