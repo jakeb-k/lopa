@@ -41,6 +41,13 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        $user->budgets()->create([
+            'name' => 'Income',
+            'user_id'=> $user->id,
+            'amount'=> 1000,
+            'progress'=> 0,
+            'over'=> false
+        ]);
 
         event(new Registered($user));
 

@@ -41,6 +41,6 @@ class User extends Authenticatable
         ];
     }
     function budgets(){
-        $this->hasMany('App\Models\Budgets'); 
+        return $this->hasMany('App\Models\Budget'); 
     }
 }

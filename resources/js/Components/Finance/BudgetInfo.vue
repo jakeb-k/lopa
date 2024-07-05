@@ -51,7 +51,7 @@ const { open: openAdd, close: closeAdd } = useModal({
 }); 
 function deleteBudget(id) {
     if (confirm('Are you sure you want to delete this budget and subbudgets?\nYou cannot recover it once deleted')) {
-        Inertia.delete(`public/budget/${id}`)
+        Inertia.delete(route('budget.destroy', id))
     }
 }
 

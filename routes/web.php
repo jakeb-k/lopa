@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Budget; 
 
 Route::get('/', function () {
     return Inertia::render('Home', [
@@ -48,6 +49,20 @@ Route::get('/auth/{driver}/callback', function (Request $request) {
         'name' => $user->getName(), 
         'provider_id' => $user->getId()
     ]);
+
+    //If new user then will need to create a budget, so check for budgets on the user
+    $budgets = $user->budgets();
+
+    if(!isset($budgets)){
+       Budget::Create([
+            'name' => 'Income',
+            'user_id'=> $user->id,
+            'amount'=> 1000,
+            'progress'=> 0,
+            'over'=> false
+        ]);
+    }
+   
 
     // Log the user in
     Auth::login($user);
